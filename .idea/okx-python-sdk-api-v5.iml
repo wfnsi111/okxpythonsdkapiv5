@@ -7,7 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/okx_http2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/venv" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.8 (okx-python-sdk-api-v5) (2)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.8" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="mypro" />
   </component>
