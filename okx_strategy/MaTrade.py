@@ -48,12 +48,12 @@ class MaTrade(BaseTrade):
         # mpf.plot(df, type='candle', addplot=add_plot, title=title, ylabel='prise(usdt)', style=my_style)
 
     def start_my_trade(self):
+        self.has_order = self.get_positions()
         while True:
-
             time.sleep(10)
             # time.sleep(60)
             # 检测持仓
-            self.has_order = self.get_positions()
+            # self.has_order = self.get_positions()
             if self.has_order:
                 self.has_order = self.stop_order()
                 if self.has_order:
@@ -173,6 +173,7 @@ class MaTrade(BaseTrade):
             condition += 1
         if condition == 2:
             # 满足条件
+            self.record_price(df_3mins)
             return {"side": "buy", "posSide": "long"}
         return False
 
@@ -199,8 +200,15 @@ class MaTrade(BaseTrade):
             condition += 1
         if condition == 2:
             # 满足条件
+            self.record_price(df_3mins)
             return {"side": "sell", "posSide": "short"}
         return False
+
+    def record_price(self, df):
+        pd.set_option("display.max_columns", None)
+        pd.set_option('display.width', 100)
+        self.log.info(df.tail(2))
+        print(df.tail(2))
 
     def stop_order(self):
         """
@@ -219,7 +227,13 @@ class MaTrade(BaseTrade):
                 self.close_positions_all()
                 self.has_order = False
                 return self.has_order
-
+            self.has_order = self.get_positions()
+            if not self.has_order:
+                # 已经触发了止损
+                self.log.info('止损.......')
+                print('止损.......')
+                self.has_order = False
+                return self.has_order
 
 
     def check_price_to_ma(self, df):
