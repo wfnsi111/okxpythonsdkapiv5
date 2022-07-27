@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from Mylog.mylog import LoggerHandler
 import time
 import okx.Account_api as Account
