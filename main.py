@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import time
 
 import okx.Account_api as Account
@@ -71,7 +73,8 @@ if __name__ == '__main__':
     flag = '1'  # 模拟盘 demo trading
     # flag = '0'  # 实盘 real trading
     use_server_time = False
-    strategy = 'MaTrade'
+    # strategy = 'MaTrade'
+    strategy = 'MaAlarm'
     instId = 'ETH-USDT-SWAP'
     ma = "MA60"
     bar1 = '1m'
