@@ -74,7 +74,7 @@ if __name__ == '__main__':
     strategy = 'MaTrade'
     instId = 'ETH-USDT-SWAP'
     ma = "MA60"
-    bar1 = '1m'
-    bar2 = '1H'
+    bar1 = '3m'
+    bar2 = '15m'
     my_trade = MyTrade(instId, api_key, secret_key, passphrase, use_server_time, flag)
     my_trade.start_tarde(strategy, ma, [bar1, bar2])

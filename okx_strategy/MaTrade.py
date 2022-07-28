@@ -488,9 +488,11 @@ class MaTrade(BaseTrade):
             t_num = t_num * 60 * 60
         elif 'm' in t:
             t_num = t_num * 60
+        elif 'D' in t:
+            t_num = t_num * 60 * 60 * 24
         else:
             pass
-        return t_num
+        return t_num * 2
 
 
 if __name__ == '__main__':
