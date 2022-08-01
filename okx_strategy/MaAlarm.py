@@ -1,12 +1,12 @@
+# -*- coding: utf-8 -*-
+
 import pandas as pd
 import mplfinance as mpf
 import time
 import csv
 import numpy as np
-# from pandas.core.frame import DataFrame
 from basetrade.basetrade import BaseTrade
 import re
-import Play_mp3
 import os
 
 api_key = "f76a1e05-cc56-43fd-aa6a-88aa3e51b6a2"

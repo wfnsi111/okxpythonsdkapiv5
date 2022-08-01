@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 dic1 = {"buy": "long", "sell": "short"}
 api_key = "f76a1e05-cc56-43fd-aa6a-88aa3e51b6a2"
 secret_key = "A23C7CEB8046F39369CF73BDEBE985F5"
