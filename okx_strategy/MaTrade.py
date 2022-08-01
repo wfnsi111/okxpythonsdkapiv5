@@ -1,5 +1,13 @@
 # -*- coding: utf-8 -*-
 
+"""
+
+信号1 趋势中
+信号2 大周期接近均线
+信号3 小周期引线和成交量达到要求
+
+"""
+
 import pandas as pd
 import mplfinance as mpf
 import time
@@ -51,6 +59,7 @@ class MaTrade(BaseTrade):
 
     def start_my_trade(self):
         self.has_order = self.get_positions()
+
         while True:
             time.sleep(10)
             # time.sleep(60)
@@ -424,7 +433,7 @@ class MaTrade(BaseTrade):
     def check_signal2(self):
         while True:
             time.sleep(1)
-            print('判断价格是否接近均线 %1 附近....................')
+            print('正在判断信号2....................')
             # self.log.info('判断价格接近均线 %1 附近')
             # 2 判断价格接近均线 %1 附近，
             ma = self.df.iloc[-1, :][self.ma]
@@ -494,7 +503,7 @@ class MaTrade(BaseTrade):
             t_num = t_num * 60 * 60 * 24
         else:
             pass
-        return t_num * 2
+        return t_num * 3
 
 
 if __name__ == '__main__':
