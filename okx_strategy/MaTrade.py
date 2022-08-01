@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
 
+"""
+
+信号1 趋势中
+信号2 大周期接近均线
+信号3 小周期引线和成交量达到要求
+
+"""
+
 import pandas as pd
 import mplfinance as mpf
 import time
-import csv
-import numpy as np
-# from pandas.core.frame import DataFrame
 from basetrade.basetrade import BaseTrade
 import re
-from threading import Timer
 
 api_key = "f76a1e05-cc56-43fd-aa6a-88aa3e51b6a2"
 secret_key = "A23C7CEB8046F39369CF73BDEBE985F5"
@@ -21,13 +25,17 @@ flag = '1'  # 模拟盘 demo trading
 
 
 class MaTrade(BaseTrade):
-    def __init__(self, instId, ma, bar, api_key=None, secret_key=None, passphrase=None, use_server_time=False):
+    def __init__(self, api_key=None, secret_key=None, passphrase=None, **kwargs):
         super().__init__(api_key, secret_key, passphrase)
-        self.ma = ma
         self.df = None
         self.df_3mins = None
-        self.bar1, self.bar2 = bar
-        self.instId = instId
+        self.stop_loss = 0
+        self.ma = kwargs.get('ma')
+        self.instId = kwargs.get('instId')
+        self.bar1 = kwargs.get('bar1')
+        self.bar2 = kwargs.get('bar2')
+        self.ma_percent = kwargs.get('ma_percent', 0.01)  # 价格接近均线的百分比
+        self.big_bar_time = kwargs.get('big_bar_time', 3)  # 大周期循环次数
 
     def drow_k(self, df, ma_list=None):
         ma_list = [self.ma]
@@ -50,7 +58,9 @@ class MaTrade(BaseTrade):
         # mpf.plot(df, type='candle', addplot=add_plot, title=title, ylabel='prise(usdt)', style=my_style)
 
     def start_my_trade(self):
+        print('MaTrade 初始化中........')
         self.has_order = self.get_positions()
+
         while True:
             time.sleep(10)
             # time.sleep(60)
@@ -61,8 +71,23 @@ class MaTrade(BaseTrade):
                 if self.has_order:
                     continue
 
-            if self.order_times == 3:
+            if self.stop_loss == 2:
+                # 止损了2次， 退出程序
+                self.log.info('止损2次，退出程序')
+                print('止损2次，退出程序')
                 break
+
+            if self.stop_loss == 1:
+                # 止损了1次， 直接检测信号3
+                if self.signal_order_para:
+                    self.log.info('3分钟满足开仓条件，准备开仓')
+                    # 设置头寸
+                    atr = self.get_atr_data()
+                    self.sz = int(0.05 * self.mybalance / atr * 100)
+                    self.posSide = self.signal_order_para.get('posSide')
+                    self.side = self.signal_order_para.get('side')
+                    # 开仓
+                    self.ready_order(self.posSide, self.side, self.sz)
 
             # 判断信号1
             signal1 = self.check_signal1()
@@ -72,22 +97,23 @@ class MaTrade(BaseTrade):
                 continue
 
             self.log.info('%s行情处于趋势之中' % self.bar2)
-            print('%s行情处于趋势之中' % self.bar2)
+            print('信号1已确认!')
+            print('周期行情处于趋势之中')
 
             # 判断信号2
             signal2 = self.check_signal2()
             if signal2:
                 self.log.info('价格接近均线 %1 附近')
-                signal_order_para = self.check_signal3(signal1)
+                self.signal_order_para = self.check_signal3(signal1)
                 # signal_order_para = {"side": "buy", "posSide": "long"}
                 # signal_order_para = {"side": "sell", "posSide": "short"}
-                if signal_order_para:
+                if self.signal_order_para:
                     self.log.info('3分钟满足开仓条件，准备开仓')
                     # 设置头寸
                     atr = self.get_atr_data()
                     self.sz = int(0.05 * self.mybalance / atr * 100)
-                    self.posSide = signal_order_para.get('posSide')
-                    self.side = signal_order_para.get('side')
+                    self.posSide = self.signal_order_para.get('posSide')
+                    self.side = self.signal_order_para.get('side')
                     # 开仓
                     self.ready_order(self.posSide, self.side, self.sz)
 
@@ -228,6 +254,7 @@ class MaTrade(BaseTrade):
             if check_flag:
                 self.close_positions_all()
                 self.has_order = False
+                self.stop_loss = 0
                 return self.has_order
             self.has_order = self.get_positions()
             if not self.has_order:
@@ -235,6 +262,7 @@ class MaTrade(BaseTrade):
                 self.log.info('止损.......')
                 print('止损.......')
                 self.has_order = False
+                self.stop_loss += 1
                 return self.has_order
 
 
@@ -318,10 +346,10 @@ class MaTrade(BaseTrade):
         df = pd.read_csv(file_path, sep=',', parse_dates=['time'])
         df.set_index(['time'], inplace=True)
 
-    def price_to_ma(self, p, ma, pre_norm=0.01):
+    def price_to_ma(self, p, ma, ma_percent=0.01):
         # 2 判断价格接近均线 %1 附近，
         pre = abs(float(p) - float(ma)) / float(ma)
-        if pre <= pre_norm:
+        if pre <= ma_percent:
             return True
         return False
 
@@ -412,7 +440,7 @@ class MaTrade(BaseTrade):
         # result = tradeAPI.cancel_algo_order([{'algoId': '297394002194735104', 'instId': 'BTC-USDT-210409'}])
 
     def check_signal1(self):
-        print('等待%s信号....................' % self.bar2)
+        print('等待信号1....................')
 
         # 1 首先判断是否处于趋势之中
         self.trend_analyze()
@@ -424,7 +452,7 @@ class MaTrade(BaseTrade):
     def check_signal2(self):
         while True:
             time.sleep(1)
-            print('判断价格是否接近均线 %1 附近....................')
+            print('正在判断信号2....................')
             # self.log.info('判断价格接近均线 %1 附近')
             # 2 判断价格接近均线 %1 附近，
             ma = self.df.iloc[-1, :][self.ma]
@@ -432,7 +460,7 @@ class MaTrade(BaseTrade):
             self.instId_detail = self._get_ticker(self.instId)
             last_p = self.instId_detail.get('last')
             # 2 判断价格接近均线 %1 附近，
-            signal2 = self.price_to_ma(last_p, ma)
+            signal2 = self.price_to_ma(last_p, ma, self.ma_percent)
             # signal2 = True
             if signal2:
                 return True
@@ -461,10 +489,12 @@ class MaTrade(BaseTrade):
             检测3分钟信号
             如果3个大周期还未出现信号，则不再判断 退出程序
         """
-        t_num = self.get_time_inv(self.bar2)
+        t_num = self.get_time_inv(self.bar2, self.big_bar_time)
+        print("信号2已确认！")
         for t in range(t_num):
-            self.log.info("循环检测%s信号, 第%s次" % (self.bar1, t))
-            print("循环检测%s信号, 第%s次" % (self.bar1, t))
+            self.log.info("循环检测信号3, 持续时间%s秒" % t)
+            # print("\r"+"检测信号3, 持续时间%s秒" % t, flush=True)
+            print("检测信号3, 持续时间%s秒" % t)
             if signal1 == 'long':
                 # 开多信号
                 signal_order_para = self.get_long_signal_3min_confirm()
@@ -480,11 +510,11 @@ class MaTrade(BaseTrade):
             time.sleep(1)
 
         # 没出现信号
-        self.log.info('3个大周期仍然没有出现没有3分钟信号 ，结束程序')
-        print('3个大周期仍然没有出现没有3分钟信号 ，结束程序')
+        self.log.info('未出现开仓信号 ，重新开始新一轮检测')
+        print('未出现开仓信号 ，重新开始新一轮检测')
         raise
 
-    def get_time_inv(self, t):
+    def get_time_inv(self, t, big_bar_time):
         t_num = int(re.findall(r"\d+", t)[0])
         if 'H' in t:
             t_num = t_num * 60 * 60
@@ -494,7 +524,7 @@ class MaTrade(BaseTrade):
             t_num = t_num * 60 * 60 * 24
         else:
             pass
-        return t_num * 2
+        return t_num * big_bar_time
 
 
 if __name__ == '__main__':
