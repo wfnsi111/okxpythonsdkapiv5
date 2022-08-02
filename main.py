@@ -6,10 +6,11 @@ from importlib import import_module
 
 class MyTrade(BaseTrade):
     def __init__(self, api_key, secret_key, passphrase, use_server_time=False, flag="1"):
-        super().__init__(api_key, secret_key, passphrase)
+        super().__init__(api_key, secret_key, passphrase, use_server_time, flag)
+        self.passphrase = passphrase
         self.api_key = api_key
         self.secret_key = secret_key
-        self.passphrase = passphrase
+        self.use_server_time = use_server_time
         self.flag = flag
         self.side = 'buy'
         self.trade_ok = False
@@ -19,7 +20,12 @@ class MyTrade(BaseTrade):
         self.tdMode = 'cross'
         self.ordType = 'oco'
         self.has_order = False  # 设置一个参数，只持仓1笔交易， 有持仓的适合 就不在开仓
-        self.algoID = ''
+        self.set_initialization_account()
+
+    def set_initialization_account(self):
+        """ 初始化账户 """
+        result = self.accountAPI.get_position_mode('long_short_mode')
+        result = self.accountAPI.set_leverage(instId='ETH-USDT-SWAP', lever='50', mgnMode='cross')
 
     def start_tarde(self, strategy, **kwargs):
         self.log.info("start trading...............................")
@@ -32,7 +38,7 @@ class MyTrade(BaseTrade):
     def choose_strategy(self, strategy='', **kwargs):
         module = import_module('okx_strategy.%s' % strategy)
         cls = getattr(module, strategy)
-        obj = cls(self.api_key, self.secret_key, self.passphrase, **kwargs)
+        obj = cls(self.api_key, self.secret_key, self.passphrase, self.use_server_time, self.flag, **kwargs)
         return obj
 
 
@@ -63,7 +69,7 @@ if __name__ == '__main__':
         'instId': 'ETH-USDT-SWAP',
         "ma": "MA60",
         "bar1": '3m',
-        "bar2": '3H',
+        "bar2": '30m',
         "ma_percent": 0.005
     }
     my_trade = MyTrade(api_key, secret_key, passphrase, use_server_time, flag)

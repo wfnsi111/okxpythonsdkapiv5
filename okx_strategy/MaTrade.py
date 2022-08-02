@@ -14,22 +14,23 @@ import time
 from basetrade.basetrade import BaseTrade
 import re
 
-api_key = "f76a1e05-cc56-43fd-aa6a-88aa3e51b6a2"
-secret_key = "A23C7CEB8046F39369CF73BDEBE985F5"
-passphrase = "Kangkang1_"
+api_key = "47473a01-7149-4deb-ac31-ee54a3afc124"
+secret_key = "79AADC7A194FD4548AFEB12AC9F78D13"
+passphrase = "Lch798503@"
 # flag是实盘与模拟盘的切换参数
-flag = '1'  # 模拟盘 demo trading
-# flag = '0'  # 实盘 real trading
+#flag = '1'  # 模拟盘 demo trading
+flag = '0'  # 实盘 real trading
 
 # df['gtime']=pd.to_datetime(df['gtime'],unit='s'))
 
 
 class MaTrade(BaseTrade):
-    def __init__(self, api_key=None, secret_key=None, passphrase=None, **kwargs):
-        super().__init__(api_key, secret_key, passphrase)
+    def __init__(self, api_key=None, secret_key=None, passphrase=None, use_server_time=False, flag='1', **kwargs):
+        super().__init__(api_key, secret_key, passphrase, use_server_time, flag)
         self.df = None
         self.df_3mins = None
         self.stop_loss = 0
+        self.flag = flag
         self.ma = kwargs.get('ma')
         self.instId = kwargs.get('instId')
         self.bar1 = kwargs.get('bar1')

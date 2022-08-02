@@ -189,7 +189,8 @@ async def subscribe_without_login(url, channels):
                 while True:
                     try:
                         res = await asyncio.wait_for(ws.recv(), timeout=25)
-                    except (asyncio.TimeoutError, websockets.exceptions.ConnectionClosed) as e:
+                    # except (asyncio.TimeoutError, websockets.exceptions.ConnectionClosed) as e:
+                    except Exception as e:
                         try:
                             await ws.send('ping')
                             res = await ws.recv()
@@ -294,7 +295,8 @@ async def subscribe(url, api_key, passphrase, secret_key, channels):
                 while True:
                     try:
                         res = await asyncio.wait_for(ws.recv(), timeout=25)
-                    except (asyncio.TimeoutError, websockets.exceptions.ConnectionClosed) as e:
+                    # except (asyncio.TimeoutError, websockets.exceptions.ConnectionClosed) as e:
+                    except Exception as e:
                         try:
                             await ws.send('ping')
                             res = await ws.recv()
@@ -332,7 +334,8 @@ async def trade(url, api_key, passphrase, secret_key, trade_param):
                 while True:
                     try:
                         res = await asyncio.wait_for(ws.recv(), timeout=25)
-                    except (asyncio.TimeoutError, websockets.exceptions.ConnectionClosed) as e:
+                    # except (asyncio.TimeoutError, websockets.exceptions.ConnectionClosed) as e:
+                    except Exception as e:
                         try:
                             await ws.send('ping')
                             res = await ws.recv()
@@ -389,12 +392,14 @@ passphrase = "Kangkang1_"
 
 # WebSocket公共频道 public channels
 # 模拟盘
-url = "wss://wspap.okx.com:8443/ws/v5/public?brokerId=9999"
+# url = "wss://wspap.okx.com:8443/ws/v5/public?brokerId=9999"
 # url = "wss://wspap.okx.com:8443/ws/v5/private?brokerId=9999"
 
 # WebSocket私有频道 private channels
 # 实盘 real trading
 # url = "wss://ws.okx.com:8443/ws/v5/private"
+url = "wss://ws.okx.com:8443/ws/v5/public"
+
 # 模拟盘 demo trading
 # url = "wss://wspap.okx.com:8443/ws/v5/private"
 
