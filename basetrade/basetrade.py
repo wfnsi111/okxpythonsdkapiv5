@@ -20,7 +20,7 @@ import datetime
 
 class BaseTrade(object):
     def __init__(self, api_key, secret_key, passphrase, use_server_time=False, flag='1'):
-        self.marketAPI = Market.MarketAPI(api_key, secret_key, passphrase, True)
+        self.marketAPI = Market.MarketAPI(api_key, secret_key, passphrase, use_server_time, flag)
         self.accountAPI = Account.AccountAPI(api_key, secret_key, passphrase, use_server_time, flag)
         self.tradeAPI = Trade.TradeAPI(api_key, secret_key, passphrase, use_server_time, flag)
         self.log = LoggerHandler()
