@@ -16,7 +16,7 @@ import okx.FDBroker_api as FDBroker
 import okx.Rfq_api as Rfq
 import okx.TradingBot_api as TradingBot
 import pandas as pd
-
+import datetime
 
 class BaseTrade(object):
     def __init__(self, api_key, secret_key, passphrase, use_server_time=False, flag='1'):
@@ -48,10 +48,9 @@ class BaseTrade(object):
         result = self.accountAPI.get_positions('SWAP')
         self.order_lst = result.get('data', [])
         for item in self.order_lst:
-            if not item:
-                return False
-            else:
+            if item:
                 return True
+        return False
 
     def check_order_result_data(self, data, flag_id=None):
         sMsg = ''
@@ -162,3 +161,20 @@ class BaseTrade(object):
             for item in data:
                 algoID = item.get("algoId")
         return algoID
+
+    def get_timestamp(self):
+        now = datetime.datetime.now()
+        t = now.isoformat("T", "milliseconds")
+        return t + "Z"
+
+    def get_order_details(self, instId, ordId=''):
+        result = self.tradeAPI.get_orders(instId, ordId)
+        self.order_details = result.get('data')[0]
+        avgPx = self.order_details.get('avgPx')
+        state = self.order_details.get('state')
+        side = self.order_details.get('side')
+        pnl = self.order_details.get('pnl')
+        # state = self.order_details.get('state')
+        msg = '%s 开仓成功，均价：%s, 状态：%s, 方向：%s' % (instId, avgPx, state, side)
+        self.log.info(msg)
+        return self.order_details

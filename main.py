@@ -25,7 +25,7 @@ class MyTrade(BaseTrade):
     def set_initialization_account(self):
         """ 初始化账户 """
         result = self.accountAPI.get_position_mode('long_short_mode')
-        result = self.accountAPI.set_leverage(instId='ETH-USDT-SWAP', lever='50', mgnMode='cross')
+        result = self.accountAPI.set_leverage(instId='ETH-USDT-SWAP', lever='10', mgnMode='cross')
 
     def start_tarde(self, strategy, **kwargs):
         self.log.info("start trading...............................")
@@ -40,7 +40,6 @@ class MyTrade(BaseTrade):
         cls = getattr(module, strategy)
         obj = cls(self.api_key, self.secret_key, self.passphrase, self.use_server_time, self.flag, **kwargs)
         return obj
-
 
     def set_place_algo_order_oco_trigger(self):
         """计划委托"""
@@ -69,8 +68,9 @@ if __name__ == '__main__':
         'instId': 'ETH-USDT-SWAP',
         "ma": "MA60",
         "bar1": '3m',
-        "bar2": '30m',
-        "ma_percent": 0.005
+        "bar2": '2H',
+        "ma_percent": 0.005,
+        'set_profit': 3,
     }
     my_trade = MyTrade(api_key, secret_key, passphrase, use_server_time, flag)
     my_trade.start_tarde(strategy, **kw)

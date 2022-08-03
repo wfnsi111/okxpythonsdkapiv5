@@ -36,7 +36,12 @@ class MaTrade(BaseTrade):
         self.bar1 = kwargs.get('bar1')
         self.bar2 = kwargs.get('bar2')
         self.ma_percent = kwargs.get('ma_percent', 0.01)  # 价格接近均线的百分比
-        self.big_bar_time = kwargs.get('big_bar_time', 3)  # 大周期循环次数
+        self.big_bar_time = kwargs.get('big_bar_time', 3)
+        self.signal_order_para = None
+        self.signal1 = False
+        self.signal2 = False
+        self.signal3 = False
+        self.set_profit = kwargs.get('set_profit', 3)   # 设置止盈
 
     def drow_k(self, df, ma_list=None):
         ma_list = [self.ma]
@@ -63,14 +68,14 @@ class MaTrade(BaseTrade):
         self.has_order = self.get_positions()
 
         while True:
-            time.sleep(10)
+            time.sleep(1)
             # time.sleep(60)
             # 检测持仓
             # self.has_order = self.get_positions()
             if self.has_order:
-                self.has_order = self.stop_order()
-                if self.has_order:
-                    continue
+                self.has_order = self.stop_order(profit=self.set_profit)
+                # if self.has_order:
+                #     continue
 
             if self.stop_loss == 2:
                 # 止损了2次， 退出程序
@@ -80,19 +85,22 @@ class MaTrade(BaseTrade):
 
             if self.stop_loss == 1:
                 # 止损了1次， 直接检测信号3
+                self.signal_order_para = self.check_signal3(self.signal1)
                 if self.signal_order_para:
                     self.log.info('3分钟满足开仓条件，准备开仓')
                     # 设置头寸
                     atr = self.get_atr_data()
-                    self.sz = int(0.05 * self.mybalance / atr * 100)
+                    self.mybalance = self.get_my_balance()
+                    self.sz = int(0.05 * self.mybalance / atr * 10)
                     self.posSide = self.signal_order_para.get('posSide')
                     self.side = self.signal_order_para.get('side')
                     # 开仓
                     self.ready_order(self.posSide, self.side, self.sz)
+                    continue
 
             # 判断信号1
-            signal1 = self.check_signal1()
-            if not signal1:
+            self.signal1 = self.check_signal1()
+            if not self.signal1:
                 # pass
                 self.log.info('%s震荡中....................' % self.bar2)
                 continue
@@ -102,17 +110,18 @@ class MaTrade(BaseTrade):
             print('周期行情处于趋势之中')
 
             # 判断信号2
-            signal2 = self.check_signal2()
-            if signal2:
+            self.signal2 = self.check_signal2()
+            if self.signal2:
                 self.log.info('价格接近均线 %1 附近')
-                self.signal_order_para = self.check_signal3(signal1)
+                self.signal_order_para = self.check_signal3(self.signal1)
                 # signal_order_para = {"side": "buy", "posSide": "long"}
                 # signal_order_para = {"side": "sell", "posSide": "short"}
                 if self.signal_order_para:
                     self.log.info('3分钟满足开仓条件，准备开仓')
                     # 设置头寸
                     atr = self.get_atr_data()
-                    self.sz = int(0.05 * self.mybalance / atr * 100)
+                    self.mybalance = self.get_my_balance()
+                    self.sz = int(0.05 * self.mybalance / atr * 10)
                     self.posSide = self.signal_order_para.get('posSide')
                     self.side = self.signal_order_para.get('side')
                     # 开仓
@@ -239,6 +248,7 @@ class MaTrade(BaseTrade):
         self.log.info(df.tail(2))
         print(df.tail(2))
 
+    '''
     def stop_order(self):
         """
         实时价格突破60MA. 且超过1个ATR值，平仓止盈
@@ -265,7 +275,58 @@ class MaTrade(BaseTrade):
                 self.has_order = False
                 self.stop_loss += 1
                 return self.has_order
+    '''
 
+    def stop_order(self, profit):
+        if profit:
+            while True:
+                time.sleep(30)
+                # 检测损盈信号
+                self.log.info('等待止盈信号')
+                print('等待止盈信号')
+                result = self.tradeAPI.get_orders_history('SWAP', limit='1')
+                order_data = result.get('data')[0]
+                para = {"long": "sell", "short": "buy"}
+                if para.get(order_data.get('posSide')) == order_data.get('side'):
+                    # 平仓单
+                    self.has_order = self.get_positions()
+                    if self.has_order:
+                        self.log.error('止损止盈检查错误， 订单ID%s' % order_data.get('ordId'))
+                    if float(order_data.get('pnl')) >= 0:
+                        print('止盈')
+                        self.log.info('止盈')
+                        self.stop_loss = 0
+                    else:
+                        print('亏损')
+                        self.log.info('亏损')
+                        self.stop_loss += 1
+
+                    return self.has_order
+
+        else:
+            ma = int(re.findall(r"\d+", self.ma)[0])
+            # 实时价格突破60MA. 且超过1个ATR值，平仓止盈
+            while True:
+                time.sleep(1)
+                self.log.info('等待止盈信号')
+                print('等待止盈信号')
+                self.df = self._get_candle_data(self.instId, self.bar2)
+                self.df[self.ma] = self.df['close'].rolling(ma).mean()
+                check_flag = self.check_price_to_ma(self.df)
+                if check_flag:
+                    self.close_positions_all()
+                    self.has_order = False
+                    self.stop_loss = 0
+                    return self.has_order
+
+                self.has_order = self.get_positions()
+                if not self.has_order:
+                    # 已经触发了止损
+                    self.log.info('止损.......')
+                    print('止损.......')
+                    self.has_order = False
+                    self.stop_loss += 1
+                    return self.has_order
 
     def check_price_to_ma(self, df):
         # 实时价格突破60MA
@@ -274,7 +335,6 @@ class MaTrade(BaseTrade):
         high = float(row['high'])
         low = float(row['low'])
         # last = row['close']
-        ma = 1425
         if high >= ma and low <= ma:
             atr = self.get_atr_data()
             if self.side == 'buy':
@@ -324,7 +384,7 @@ class MaTrade(BaseTrade):
 
     def get_atr_data(self):
         try:
-            self.mybalance = self.get_my_balance()
+            # self.mybalance = self.get_my_balance()
             # 或者atr值， 前20天波动值
             new_df = self.df.tail(20).copy()
             tr_lst = []
@@ -354,15 +414,6 @@ class MaTrade(BaseTrade):
             return True
         return False
 
-    def get_order_details(self, instId, ordId):
-        result = self.tradeAPI.get_orders(instId, ordId)
-        self.order_details = result.get('data')[0]
-        avgPx = self.order_details.get('avgPx')
-        state = self.order_details.get('state')
-        side = self.order_details.get('side')
-        # state = self.order_details.get('state')
-        msg = '%s 开仓成功，均价：%s, 状态：%s, 方向：%s' % (instId, avgPx, state, side)
-        self.log.info(msg)
 
     def set_place_algo_order_price(self):
         """ 设置止损止盈价格
@@ -370,19 +421,25 @@ class MaTrade(BaseTrade):
 
             止损（ %5 * 账户资金 ） 除以 （ 3 * 建仓单位）
         """
-        p = (0.05 * self.mybalance) / (3 * self.sz / 100)
+        p = (0.05 * self.mybalance) / (3 * self.sz / 10)
         if self.order_lst:
             for data in self.order_lst:
                 avgPx = data.get('avgPx')
                 posSide = data.get('posSide')
-                if posSide == 'long':
-                    # tp = str(float(avgPx) + p)
-                    tp = str(float(avgPx) * 10)
-                    sl = str(float(avgPx) - p)
+                if self.set_profit:
+                    if posSide == 'long':
+                        tp = str(float(avgPx) + int(self.set_profit) * p)
+                        sl = str(float(avgPx) - p)
+                    else:
+                        tp = str(float(avgPx) - int(self.set_profit) * p)
+                        sl = str(float(avgPx) + p)
                 else:
-                    # tp = str(float(avgPx) - p)
-                    tp = str(float(avgPx) / 10)
-                    sl = str(float(avgPx) + p)
+                    if posSide == 'long':
+                        tp = str(float(avgPx) * 2)
+                        sl = str(float(avgPx) - p)
+                    else:
+                        tp = str(float(avgPx) / 2)
+                        sl = str(float(avgPx) + p)
                 # -1 为市价平仓
                 p2 = "-1"
                 price_para = {
@@ -452,7 +509,7 @@ class MaTrade(BaseTrade):
 
     def check_signal2(self):
         while True:
-            time.sleep(1)
+            time.sleep(5)
             print('正在判断信号2....................')
             # self.log.info('判断价格接近均线 %1 附近')
             # 2 判断价格接近均线 %1 附近，
@@ -504,6 +561,7 @@ class MaTrade(BaseTrade):
                 signal_order_para = self.get_short_signal_3min_confirm()
             else:
                 signal_order_para = False
+            # signal_order_para = {"side": "buy", "posSide": "long"}
             if signal_order_para:
                 self.log.info('满足3分钟信号')
                 return signal_order_para
