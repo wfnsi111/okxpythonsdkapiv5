@@ -20,15 +20,10 @@ class MyTrade(BaseTrade):
         self.tdMode = 'cross'
         self.ordType = 'oco'
         self.has_order = False  # 设置一个参数，只持仓1笔交易， 有持仓的适合 就不在开仓
-        self.set_initialization_account()
-
-    def set_initialization_account(self):
-        """ 初始化账户 """
-        result = self.accountAPI.get_position_mode('long_short_mode')
-        result = self.accountAPI.set_leverage(instId='ETH-USDT-SWAP', lever='10', mgnMode='cross')
 
     def start_tarde(self, strategy, **kwargs):
         self.log.info("start trading...............................")
+        print('CyTrade 初始化中........')
         strategy_obj = self.choose_strategy(strategy, **kwargs)
         try:
             strategy_obj.start_my_trade()
@@ -68,7 +63,7 @@ if __name__ == '__main__':
         'instId': 'ETH-USDT-SWAP',
         "ma": "MA60",
         "bar1": '3m',
-        "bar2": '2H',
+        "bar2": '12H',
         "ma_percent": 0.005,
         'set_profit': 3,
     }

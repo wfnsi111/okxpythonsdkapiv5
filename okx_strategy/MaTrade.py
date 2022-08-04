@@ -64,11 +64,12 @@ class MaTrade(BaseTrade):
         # mpf.plot(df, type='candle', addplot=add_plot, title=title, ylabel='prise(usdt)', style=my_style)
 
     def start_my_trade(self):
-        print('MaTrade 初始化中........')
-        self.has_order = self.get_positions()
+        time.sleep(2)
+        print('等待信号1....................')
 
+        self.has_order = self.get_positions()
         while True:
-            time.sleep(1)
+            time.sleep(30)
             # time.sleep(60)
             # 检测持仓
             # self.has_order = self.get_positions()
@@ -87,57 +88,58 @@ class MaTrade(BaseTrade):
                 # 止损了1次， 直接检测信号3
                 self.signal_order_para = self.check_signal3(self.signal1)
                 if self.signal_order_para:
-                    self.log.info('3分钟满足开仓条件，准备开仓')
-                    # 设置头寸
-                    atr = self.get_atr_data()
-                    self.mybalance = self.get_my_balance()
-                    self.sz = int(0.05 * self.mybalance / atr * 10)
-                    self.posSide = self.signal_order_para.get('posSide')
-                    self.side = self.signal_order_para.get('side')
+                    self.log.info('3分钟满足开仓条件，如果价格在均线附近 准备开仓')
+                    print('已检测到信号3.。。。')
+                    code = self.check_price_to_ma_pec()
+                    if not code:
+                        continue
                     # 开仓
-                    self.ready_order(self.posSide, self.side, self.sz)
+                    self.ready_order()
                     continue
 
             # 判断信号1
             self.signal1 = self.check_signal1()
             if not self.signal1:
-                # pass
-                self.log.info('%s震荡中....................' % self.bar2)
+                # print('等待信号1....................')
                 continue
 
-            self.log.info('%s行情处于趋势之中' % self.bar2)
             print('信号1已确认!')
             print('周期行情处于趋势之中')
+            self.log.info('信号1已确认!')
 
             # 判断信号2
             self.signal2 = self.check_signal2()
             if self.signal2:
-                self.log.info('价格接近均线 %1 附近')
                 self.signal_order_para = self.check_signal3(self.signal1)
                 # signal_order_para = {"side": "buy", "posSide": "long"}
                 # signal_order_para = {"side": "sell", "posSide": "short"}
                 if self.signal_order_para:
-                    self.log.info('3分钟满足开仓条件，准备开仓')
-                    # 设置头寸
-                    atr = self.get_atr_data()
-                    self.mybalance = self.get_my_balance()
-                    self.sz = int(0.05 * self.mybalance / atr * 10)
-                    self.posSide = self.signal_order_para.get('posSide')
-                    self.side = self.signal_order_para.get('side')
+                    self.log.info('3分钟满足开仓条件，如果价格在均线附近 准备开仓')
+                    print('已检测到信号3.。。。')
+                    code = self.check_price_to_ma_pec()
+                    if not code:
+                        continue
                     # 开仓
-                    self.ready_order(self.posSide, self.side, self.sz)
+                    self.ready_order()
 
-
-
-    def cal_profit(self, df):
-        pass
+    def set_my_position(self):
+        # 设置头寸
+        atr = self.get_atr_data()
+        self.mybalance = self.get_my_balance()
+        currency = 0.05 * self.mybalance / atr
+        sz = self.currency_to_sz(self.instId, currency)
+        if sz < 1:
+            print('仓位太小， 无法开仓 ---> *** %s张 ***' % sz)
+            self.log.error('仓位太小， 无法开仓')
+            raise
+        return int(sz)
 
     def trend_analyze(self, c_length=10):
         '''
         第一步： 判断趋势
             10根K线连续处于均线以下
         '''
-        self.get_history_1h()
+        self.df = self._get_market_data(self.instId, self.bar2, [self.ma])
         up_count = 0
         down_count = 0
         for index, row in self.df.iterrows():
@@ -245,7 +247,9 @@ class MaTrade(BaseTrade):
     def record_price(self, df):
         pd.set_option("display.max_columns", None)
         pd.set_option('display.width', 100)
+        self.log.info('信号出现， 准备开仓')
         self.log.info(df.tail(2))
+        print('信号出现， 准备开仓')
         print(df.tail(2))
 
     '''
@@ -278,11 +282,12 @@ class MaTrade(BaseTrade):
     '''
 
     def stop_order(self, profit):
+        self.log.info('等待止盈信号')
         if profit:
             while True:
                 time.sleep(30)
                 # 检测损盈信号
-                self.log.info('等待止盈信号')
+                # self.log.info('等待止盈信号')
                 print('等待止盈信号')
                 result = self.tradeAPI.get_orders_history('SWAP', limit='1')
                 order_data = result.get('data')[0]
@@ -308,7 +313,7 @@ class MaTrade(BaseTrade):
             # 实时价格突破60MA. 且超过1个ATR值，平仓止盈
             while True:
                 time.sleep(1)
-                self.log.info('等待止盈信号')
+                # self.log.info('等待止盈信号')
                 print('等待止盈信号')
                 self.df = self._get_candle_data(self.instId, self.bar2)
                 self.df[self.ma] = self.df['close'].rolling(ma).mean()
@@ -345,25 +350,40 @@ class MaTrade(BaseTrade):
                     return True
         return False
 
+    def check_price_to_ma_pec(self):
+        # 实时价格是否接近均线百分比附近
+        df = self._get_candle_data(self.instId, self.bar2, [self.ma])
+        row = df.iloc[-1, :]
+        self.log.info(row)
+        ma = float(row[self.ma])
+        # high = float(row['high'])
+        # low = float(row['low'])
+        last_p = float(row['close'])
+        code = self.price_to_ma(last_p, ma, self.ma_percent)
+        if code:
+            print('价格在均线附近，准备开仓')
+            self.log.info('价格在均线附近，准备开仓')
+        else:
+            print('价格远离均线，信号无效，重新检测中')
+            self.log.info('价格远离均线，信号无效，重新检测中')
+        return code
 
-    def get_history_1h(self):
-        self.df = self._get_market_data(self.instId, self.bar2)
-        ma = int(re.findall(r"\d+", self.ma)[0])
-        self.df[self.ma] = self.df['close'].rolling(ma).mean()
-
-
-    def ready_order(self, posSide, side, sz):
+    def ready_order(self):
         # isolated cross保证金模式.全仓, market：市价单  limit：限价单 post_only：只做maker单
         # sz 委托数量
+        self.set_initialization_account(self.instId, lever='10', mgnMode='cross')
+        self.sz = self.set_my_position()
+        self.posSide = self.signal_order_para.get('posSide')
+        self.side = self.signal_order_para.get('side')
         para = {
             "instId": self.instId,
             "tdMode": self.tdMode,
             "ccy": 'USDT',
-            'side': side,
+            'side': self.side,
             'ordType': 'market',
-            'sz': sz,
+            'sz': self.sz,
             'px': '',
-            'posSide': posSide
+            'posSide': self.posSide
         }
 
         result = self.tradeAPI.place_order(**para)
@@ -373,6 +393,7 @@ class MaTrade(BaseTrade):
             # self.get_order_details(self.instId, ordId)
             self.has_order = self.get_positions()
             self.order_times += 1
+            print('开仓成功！！！！！！')
             self.log.info('开仓成功！！！！！！')
         else:
             self.log.error('place_order error!!!!')
@@ -498,29 +519,33 @@ class MaTrade(BaseTrade):
         # result = tradeAPI.cancel_algo_order([{'algoId': '297394002194735104', 'instId': 'BTC-USDT-210409'}])
 
     def check_signal1(self):
-        print('等待信号1....................')
-
         # 1 首先判断是否处于趋势之中
         self.trend_analyze()
-        signal_trend = self.set_signal_1h()
-        # signal_trend = 'short'
-        return signal_trend
-
+        signal1 = self.set_signal_1h()
+        # signal1 = 'short'
+        return signal1
 
     def check_signal2(self):
+        self.log.info('正在判断信号2....................')
+        i = 0
         while True:
-            time.sleep(5)
-            print('正在判断信号2....................')
-            # self.log.info('判断价格接近均线 %1 附近')
-            # 2 判断价格接近均线 %1 附近，
-            ma = self.df.iloc[-1, :][self.ma]
+            i += 1
+            print("\r" + "正在判断信号2" + '.' * i, flush=True, end='')
+            if i == 6:
+                i = 0
+            time.sleep(2)
             # 获取现在的价格
-            self.instId_detail = self._get_ticker(self.instId)
-            last_p = self.instId_detail.get('last')
+            self.df = self._get_candle_data(self.instId, self.bar2, [self.ma])
+            # 2 判断价格接近均线 %1 附近，
+            row = self.df.iloc[-1, :]
+            ma = row[self.ma]
+            last_p = row['close']
             # 2 判断价格接近均线 %1 附近，
             signal2 = self.price_to_ma(last_p, ma, self.ma_percent)
             # signal2 = True
             if signal2:
+                print("信号2已确认！")
+                self.log.info("信号2已确认！")
                 return True
 
     """
@@ -548,11 +573,14 @@ class MaTrade(BaseTrade):
             如果3个大周期还未出现信号，则不再判断 退出程序
         """
         t_num = self.get_time_inv(self.bar2, self.big_bar_time)
-        print("信号2已确认！")
+        self.log.info("开始循环检测信号3")
+        i = 0
         for t in range(t_num):
-            self.log.info("循环检测信号3, 持续时间%s秒" % t)
-            # print("\r"+"检测信号3, 持续时间%s秒" % t, flush=True)
-            print("检测信号3, 持续时间%s秒" % t)
+            i += 1
+            print("\r"+"检测信号3, 持续时间%s秒" % t + '.' * i, flush=True, end='')
+            if i == 6:
+                i = 0
+            # print("检测信号3, 持续时间%s秒" % t)
             if signal1 == 'long':
                 # 开多信号
                 signal_order_para = self.get_long_signal_3min_confirm()

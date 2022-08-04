@@ -17,14 +17,15 @@ import okx.Rfq_api as Rfq
 import okx.TradingBot_api as TradingBot
 import pandas as pd
 import datetime
+import re
 
-class BaseTrade(object):
+
+class BaseTrade:
     def __init__(self, api_key, secret_key, passphrase, use_server_time=False, flag='1'):
         self.marketAPI = Market.MarketAPI(api_key, secret_key, passphrase, use_server_time, flag)
         self.accountAPI = Account.AccountAPI(api_key, secret_key, passphrase, use_server_time, flag)
         self.tradeAPI = Trade.TradeAPI(api_key, secret_key, passphrase, use_server_time, flag)
         self.log = LoggerHandler()
-        self.db = None
         self.side = 'buy'
         self.trade_ok = False
         self.posSide = ''
@@ -93,7 +94,7 @@ class BaseTrade(object):
         self.has_order = False
         self.order_lst.clear()
 
-    def _get_market_data(self, instId, bar, limit='100'):
+    def _get_market_data(self, instId, bar, ma_lst=None, limit='100'):
         """ 获取历史K线数据 """
         result = self.marketAPI.get_history_candlesticks(instId, bar=bar, limit=limit)
         data_lst = result.get("data")
@@ -106,12 +107,16 @@ class BaseTrade(object):
             data_[0] = self.timestamp_to_date(data_[0])
             new_data_lst.append(data_)
 
-        df_market_data = pd.DataFrame(new_data_lst, columns=columns_lst)
-        df_market_data['date'] = pd.to_datetime(df_market_data['date'])
-        df_market_data.set_index(['date'], inplace=True)
-        return df_market_data
+        df = pd.DataFrame(new_data_lst, columns=columns_lst)
+        df['date'] = pd.to_datetime(df['date'])
+        df.set_index(['date'], inplace=True)
+        if isinstance(ma_lst, list):
+            for ma in ma_lst:
+                ma_num = int(re.findall(r"\d+", ma)[0])
+                df[ma] = df['close'].rolling(ma_num).mean()
+        return df
 
-    def _get_candle_data(self, instId, bar, limit='100'):
+    def _get_candle_data(self, instId, bar, ma_lst=None, limit='100'):
         """ 获取K线数据 """
         result = self.marketAPI.get_candlesticks(instId, bar=bar, limit=limit)
         data_lst = result.get("data")
@@ -124,10 +129,14 @@ class BaseTrade(object):
             data_[0] = self.timestamp_to_date(data_[0])
             new_data_lst.append(data_)
 
-        df_market_data = pd.DataFrame(new_data_lst, columns=columns_lst)
-        df_market_data['date'] = pd.to_datetime(df_market_data['date'])
-        df_market_data.set_index(['date'], inplace=True)
-        return df_market_data
+        df = pd.DataFrame(new_data_lst, columns=columns_lst)
+        df['date'] = pd.to_datetime(df['date'])
+        df.set_index(['date'], inplace=True)
+        if isinstance(ma_lst, list):
+            for ma in ma_lst:
+                ma_num = int(re.findall(r"\d+", ma)[0])
+                df[ma] = df['close'].rolling(ma_num).mean()
+        return df
 
     def get_my_balance(self):
         result = self.accountAPI.get_account('USDT')
@@ -178,3 +187,20 @@ class BaseTrade(object):
         msg = '%s 开仓成功，均价：%s, 状态：%s, 方向：%s' % (instId, avgPx, state, side)
         self.log.info(msg)
         return self.order_details
+
+    def currency_to_sz(self, instId, currency):
+        """ 币转张 """
+        coefficient = 1
+        if 'ETH' in instId:
+            coefficient = 10
+        elif 'DOG' in instId:
+            coefficient = 1000
+        elif 'BTC' in instId:
+            coefficient = 100
+        sz = currency * coefficient
+        return sz
+
+    def set_initialization_account(self, instId, lever='10', mgnMode='cross'):
+        """ 初始化账户 """
+        result = self.accountAPI.get_position_mode('long_short_mode')
+        result = self.accountAPI.set_leverage(instId=instId, lever=lever, mgnMode=mgnMode)
