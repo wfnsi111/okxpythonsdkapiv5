@@ -2,6 +2,7 @@
 
 from basetrade.basetrade import BaseTrade
 from importlib import import_module
+import re
 
 
 class MyTrade(BaseTrade):
@@ -59,13 +60,21 @@ if __name__ == '__main__':
     api_key, secret_key, passphrase, flag = get_aip_key_()
     use_server_time = False
     strategy = 'MaTrade'
+
+    while True:
+        bar2 = input("请输入大周期：")
+        if 'm' in bar2 or 'H' in bar2:
+            break
+        else:
+            print('错误， 请重新输入')
+            continue
+
     kw = {
         'instId': 'ETH-USDT-SWAP',
         "ma": "MA60",
-        "bar1": '3m',
-        "bar2": '12H',
-        "ma_percent": 0.005,
-        'set_profit': 3,
+        "bar2": bar2,
+        "big_bar_time": 3,
     }
+
     my_trade = MyTrade(api_key, secret_key, passphrase, use_server_time, flag)
     my_trade.start_tarde(strategy, **kw)
