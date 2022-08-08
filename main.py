@@ -61,13 +61,7 @@ if __name__ == '__main__':
     use_server_time = False
     strategy = 'MaTrade'
 
-    while True:
-        bar2 = input("请输入大周期：")
-        if 'm' in bar2 or 'H' in bar2:
-            break
-        else:
-            print('错误， 请重新输入')
-            continue
+    bar2 = '1H'
 
     kw = {
         'instId': 'ETH-USDT-SWAP',

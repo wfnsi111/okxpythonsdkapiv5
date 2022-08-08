@@ -15,15 +15,6 @@ from basetrade.basetrade import BaseTrade
 import re
 from conf.ma_trade_args import args_dict
 
-api_key = "47473a01-7149-4deb-ac31-ee54a3afc124"
-secret_key = "79AADC7A194FD4548AFEB12AC9F78D13"
-passphrase = "Lch798503@"
-# flag是实盘与模拟盘的切换参数
-#flag = '1'  # 模拟盘 demo trading
-flag = '0'  # 实盘 real trading
-
-# df['gtime']=pd.to_datetime(df['gtime'],unit='s'))
-
 
 class MaTrade(BaseTrade):
     def __init__(self, api_key=None, secret_key=None, passphrase=None, use_server_time=False, flag='1', **kwargs):
@@ -365,7 +356,7 @@ class MaTrade(BaseTrade):
     def ready_order(self):
         # isolated cross保证金模式.全仓, market：市价单  limit：限价单 post_only：只做maker单
         # sz 委托数量
-        self.set_initialization_account(self.instId, lever='10', mgnMode='cross')
+        self.set_initialization_account(self.instId, lever='50', mgnMode='cross')
         self.sz = self.set_my_position()
         self.posSide = self.signal_order_para.get('posSide')
         self.side = self.signal_order_para.get('side')
@@ -516,7 +507,7 @@ class MaTrade(BaseTrade):
         # 1 首先判断是否处于趋势之中
         self.trend_analyze()
         signal1 = self.set_signal_1h()
-        signal1 = 'short'
+        # signal1 = 'short'
         return signal1
 
     def check_signal2(self):
@@ -536,7 +527,7 @@ class MaTrade(BaseTrade):
             last_p = row['close']
             # 2 判断价格接近均线 %1 附近，
             signal2 = self.price_to_ma(last_p, ma, self.ma_percent)
-            signal2 = True
+            # signal2 = True
             if signal2:
                 print("信号2已确认！")
                 self.log.info("信号2已确认！")
@@ -583,7 +574,7 @@ class MaTrade(BaseTrade):
                 signal_order_para = self.get_short_signal_3min_confirm()
             else:
                 signal_order_para = False
-            signal_order_para = {"side": "buy", "posSide": "long"}
+            # signal_order_para = {"side": "buy", "posSide": "long"}
             if signal_order_para:
                 self.log.info('满足3分钟信号')
                 return signal_order_para
