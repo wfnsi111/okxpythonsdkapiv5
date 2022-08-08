@@ -13,6 +13,7 @@ import mplfinance as mpf
 import time
 from basetrade.basetrade import BaseTrade
 import re
+from conf.ma_trade_args import args_dict
 
 api_key = "47473a01-7149-4deb-ac31-ee54a3afc124"
 secret_key = "79AADC7A194FD4548AFEB12AC9F78D13"
@@ -33,15 +34,14 @@ class MaTrade(BaseTrade):
         self.flag = flag
         self.ma = kwargs.get('ma')
         self.instId = kwargs.get('instId')
-        self.bar1 = kwargs.get('bar1')
         self.bar2 = kwargs.get('bar2')
-        self.ma_percent = kwargs.get('ma_percent', 0.01)  # 价格接近均线的百分比
         self.big_bar_time = kwargs.get('big_bar_time', 3)
         self.signal_order_para = None
         self.signal1 = False
         self.signal2 = False
         self.signal3 = False
-        self.set_profit = kwargs.get('set_profit', 3)   # 设置止盈
+        self.ma_percent, self.bar1, self.max_stop_loss, self.set_profit = self.set_args(self.bar2)
+
 
     def drow_k(self, df, ma_list=None):
         ma_list = [self.ma]
@@ -65,11 +65,10 @@ class MaTrade(BaseTrade):
 
     def start_my_trade(self):
         time.sleep(2)
-        print('等待信号1....................')
 
         self.has_order = self.get_positions()
         while True:
-            time.sleep(30)
+            time.sleep(1)
             # time.sleep(60)
             # 检测持仓
             # self.has_order = self.get_positions()
@@ -78,13 +77,13 @@ class MaTrade(BaseTrade):
                 # if self.has_order:
                 #     continue
 
-            if self.stop_loss == 2:
+            if self.stop_loss == self.max_stop_loss:
                 # 止损了2次， 退出程序
                 self.log.info('止损2次，退出程序')
                 print('止损2次，退出程序')
                 break
 
-            if self.stop_loss == 1:
+            if self.stop_loss < self.max_stop_loss and self.stop_loss > 0:
                 # 止损了1次， 直接检测信号3
                 self.signal_order_para = self.check_signal3(self.signal1)
                 if self.signal_order_para:
@@ -98,6 +97,7 @@ class MaTrade(BaseTrade):
                     continue
 
             # 判断信号1
+            print('等待信号1....................')
             self.signal1 = self.check_signal1()
             if not self.signal1:
                 # print('等待信号1....................')
@@ -193,28 +193,22 @@ class MaTrade(BaseTrade):
 
         # df_3mins = self.get_3_min_data()
         # df_3mins = self.get_3min_data_history()
-        df_3mins = self._get_market_data(self.instId, self.bar1, limit='2')
-
-        front_volume = df_3mins.iloc[0, :]['volume']
+        df_3mins = self._get_market_data(self.instId, self.bar1, vol_ma=60, limit='100')
+        front_volume = df_3mins.iloc[-2, :]['volume']
         row2 = df_3mins.iloc[-1, :]
-        condition = 0
         _volume = float(row2['volume'])
         _close = float(row2['close'])
         _open = float(row2['open'])
         _low = float(row2['low'])
         entity = abs(_close - _open)
         down_wick = min(_close, _open) - _low
+        vol_ma = float(row2['vol_ma'])
         # 引线大于实体，
         if down_wick > entity:
-            condition += 1
-
-        # vol是前K线的2倍
-        if _volume > 2 * float(front_volume):
-            condition += 1
-        if condition == 2:
-            # 满足条件
-            self.record_price(df_3mins)
-            return {"side": "buy", "posSide": "long"}
+            if _volume > 2 * float(front_volume):
+                if _volume >= 2 * vol_ma:
+                    self.record_price(df_3mins)
+                    return {"side": "buy", "posSide": "long"}
         return False
 
     def get_short_signal_3min_confirm(self):
@@ -223,25 +217,23 @@ class MaTrade(BaseTrade):
             1 上引线 大于实体
             2 vol是前K线的2倍
         """
-        df_3mins = self._get_market_data(self.instId, self.bar1, limit='2')
-        front_volume = df_3mins.iloc[0, :]['volume']
+        df_3mins = self._get_market_data(self.instId, self.bar1, vol_ma=60, limit='100')
+        front_volume = df_3mins.iloc[-2, :]['volume']
         row2 = df_3mins.iloc[-1, :]
-        condition = 0
         _volume = float(row2['volume'])
         _close = float(row2['close'])
         _open = float(row2['open'])
         _high = float(row2['high'])
         entity = abs(_close - _open)
         down_wick = _high - max(_close, _open)
+        vol_ma = float(row2['vol_ma'])
         # 引线大于实体，
-        if down_wick > entity:
-            condition += 1
-        if _volume > 2 * float(front_volume):
-            condition += 1
-        if condition == 2:
-            # 满足条件
-            self.record_price(df_3mins)
-            return {"side": "sell", "posSide": "short"}
+        if down_wick >= entity:
+            if _volume >= 2 * float(front_volume):
+                if _volume >= 2 * vol_ma:
+                    # 满足条件
+                    self.record_price(df_3mins)
+                    return {"side": "sell", "posSide": "short"}
         return False
 
     def record_price(self, df):
@@ -283,12 +275,14 @@ class MaTrade(BaseTrade):
 
     def stop_order(self, profit):
         self.log.info('等待止盈信号')
+        i = 0
         if profit:
             while True:
                 time.sleep(30)
-                # 检测损盈信号
-                # self.log.info('等待止盈信号')
-                print('等待止盈信号')
+                i += 1
+                print("\r" + "等待止盈信号" + '.' * i + ' ' * (7 - i), flush=True, end='')
+                if i == 6:
+                    i = 0
                 result = self.tradeAPI.get_orders_history('SWAP', limit='1')
                 order_data = result.get('data')[0]
                 para = {"long": "sell", "short": "buy"}
@@ -522,7 +516,7 @@ class MaTrade(BaseTrade):
         # 1 首先判断是否处于趋势之中
         self.trend_analyze()
         signal1 = self.set_signal_1h()
-        # signal1 = 'short'
+        signal1 = 'short'
         return signal1
 
     def check_signal2(self):
@@ -530,7 +524,7 @@ class MaTrade(BaseTrade):
         i = 0
         while True:
             i += 1
-            print("\r" + "正在判断信号2" + '.' * i, flush=True, end='')
+            print("\r" + "正在判断信号2" + '.' * i + ' ' * (7 - i), flush=True, end='')
             if i == 6:
                 i = 0
             time.sleep(2)
@@ -542,7 +536,7 @@ class MaTrade(BaseTrade):
             last_p = row['close']
             # 2 判断价格接近均线 %1 附近，
             signal2 = self.price_to_ma(last_p, ma, self.ma_percent)
-            # signal2 = True
+            signal2 = True
             if signal2:
                 print("信号2已确认！")
                 self.log.info("信号2已确认！")
@@ -577,7 +571,7 @@ class MaTrade(BaseTrade):
         i = 0
         for t in range(t_num):
             i += 1
-            print("\r"+"检测信号3, 持续时间%s秒" % t + '.' * i, flush=True, end='')
+            print("\r"+"检测信号3, 持续时间%s秒" % t + '.' * i + ' ' * (7 - i), flush=True, end='')
             if i == 6:
                 i = 0
             # print("检测信号3, 持续时间%s秒" % t)
@@ -589,7 +583,7 @@ class MaTrade(BaseTrade):
                 signal_order_para = self.get_short_signal_3min_confirm()
             else:
                 signal_order_para = False
-            # signal_order_para = {"side": "buy", "posSide": "long"}
+            signal_order_para = {"side": "buy", "posSide": "long"}
             if signal_order_para:
                 self.log.info('满足3分钟信号')
                 return signal_order_para
@@ -612,6 +606,17 @@ class MaTrade(BaseTrade):
         else:
             pass
         return t_num * big_bar_time
+
+    def set_args(self, bar):
+        data_dict = args_dict.get(bar, None)
+        if data_dict is None:
+            self.log.error('大周期错误')
+            raise
+        ma_percent = data_dict.get('ma_percent')
+        bar1 = data_dict.get('bar1')
+        max_stop_loss = data_dict.get('stop_loss')
+        set_profit = data_dict.get('set_profit')
+        return ma_percent, bar1, max_stop_loss, set_profit
 
 
 if __name__ == '__main__':

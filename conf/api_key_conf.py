@@ -8,7 +8,7 @@ api_key1 = {
     'flag': '1'
 }
 
-# 50
+# 200
 api_key2 = {
     'api_key': "47473a01-7149-4deb-ac31-ee54a3afc124",
     'secret_key': "79AADC7A194FD4548AFEB12AC9F78D13",
@@ -38,6 +38,6 @@ api_key4 = {
 
 
 def get_aip_key():
-    # return api_key1
-    return api_key2
+    return api_key1
+    # return api_key2
     # return api_key3

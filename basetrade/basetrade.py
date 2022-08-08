@@ -94,7 +94,7 @@ class BaseTrade:
         self.has_order = False
         self.order_lst.clear()
 
-    def _get_market_data(self, instId, bar, ma_lst=None, limit='100'):
+    def _get_market_data(self, instId, bar, ma_lst=None, vol_ma=None, limit='100'):
         """ 获取历史K线数据 """
         result = self.marketAPI.get_history_candlesticks(instId, bar=bar, limit=limit)
         data_lst = result.get("data")
@@ -114,9 +114,12 @@ class BaseTrade:
             for ma in ma_lst:
                 ma_num = int(re.findall(r"\d+", ma)[0])
                 df[ma] = df['close'].rolling(ma_num).mean()
+        if vol_ma:
+            # vol_ma_num = int(re.findall(r"\d+", vol_ma)[0])
+            df['vol_ma'] = df['volume'].rolling(vol_ma).mean()
         return df
 
-    def _get_candle_data(self, instId, bar, ma_lst=None, limit='100'):
+    def _get_candle_data(self, instId, bar, ma_lst=None, vol_ma=None, limit='100'):
         """ 获取K线数据 """
         result = self.marketAPI.get_candlesticks(instId, bar=bar, limit=limit)
         data_lst = result.get("data")
@@ -136,6 +139,9 @@ class BaseTrade:
             for ma in ma_lst:
                 ma_num = int(re.findall(r"\d+", ma)[0])
                 df[ma] = df['close'].rolling(ma_num).mean()
+        if vol_ma:
+            # vol_ma_num = int(re.findall(r"\d+", vol_ma)[0])
+            df['vol_ma'] = df['volume'].rolling(vol_ma).mean()
         return df
 
     def get_my_balance(self):
