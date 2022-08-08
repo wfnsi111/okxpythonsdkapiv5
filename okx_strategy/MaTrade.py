@@ -193,7 +193,7 @@ class MaTrade(BaseTrade):
 
         # df_3mins = self.get_3_min_data()
         # df_3mins = self.get_3min_data_history()
-        df_3mins = self._get_market_data(self.instId, self.bar1, vol_ma=60, limit='100')
+        df_3mins = self._get_market_data(self.instId, self.bar1, vol_ma=20, limit='100')
         front_volume = df_3mins.iloc[-2, :]['volume']
         row2 = df_3mins.iloc[-1, :]
         _volume = float(row2['volume'])
@@ -217,7 +217,7 @@ class MaTrade(BaseTrade):
             1 上引线 大于实体
             2 vol是前K线的2倍
         """
-        df_3mins = self._get_market_data(self.instId, self.bar1, vol_ma=60, limit='100')
+        df_3mins = self._get_market_data(self.instId, self.bar1, vol_ma=20, limit='100')
         front_volume = df_3mins.iloc[-2, :]['volume']
         row2 = df_3mins.iloc[-1, :]
         _volume = float(row2['volume'])
