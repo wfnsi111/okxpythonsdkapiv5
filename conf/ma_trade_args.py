@@ -47,12 +47,6 @@ args_dict = {
         'stop_loss': 3,
         'set_profit': 8,
     },
-    '9H': {
-        "ma_percent": 0.02,
-        'bar1': '15m',
-        'stop_loss': 3,
-        'set_profit': 8,
-    },
     '12H': {
         "ma_percent": 0.03,
         'bar1': '15m',
