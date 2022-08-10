@@ -3,6 +3,7 @@
 from basetrade.basetrade import BaseTrade
 from importlib import import_module
 import re
+from basetrade.accountinfo import AccountInfo
 
 
 class MyTrade(BaseTrade):
@@ -37,15 +38,6 @@ class MyTrade(BaseTrade):
         obj = cls(self.api_key, self.secret_key, self.passphrase, self.use_server_time, self.flag, **kwargs)
         return obj
 
-    def set_place_algo_order_oco_trigger(self):
-        """计划委托"""
-        pass
-
-    def _cancel_algo_order(self):
-        """撤销策略委托订单"""
-        pass
-
-
 def get_aip_key_():
     from conf.api_key_conf import get_aip_key
     my_aip_key = get_aip_key()
@@ -55,13 +47,12 @@ def get_aip_key_():
     flag = my_aip_key.get('flag')
     return api_key, secret_key, passphrase, flag
 
-
 if __name__ == '__main__':
     api_key, secret_key, passphrase, flag = get_aip_key_()
     use_server_time = False
     strategy = 'MaTrade'
 
-    bar2 = '1H'
+    bar2 = '15m'
 
     kw = {
         'instId': 'ETH-USDT-SWAP',

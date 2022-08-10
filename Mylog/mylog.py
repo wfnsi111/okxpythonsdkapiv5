@@ -60,6 +60,6 @@ if __name__ == '__main__':
     curTime = time.strftime("%Y-%m-%d %H_%M", time.localtime())
     base_dir = os.path.split(os.path.abspath(__file__))[0]
     # 日志文件
-    file_path = os.path.join(base_dir , '{}_test.log'.format(curTime))
+    file_path = os.path.join(base_dir, '{}_test.log'.format(curTime))
     logger = LoggerHandler(file=file_path)
     logger.info('hello world!')

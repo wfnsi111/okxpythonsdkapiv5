@@ -1,214 +1,422 @@
- [2022-07-26 14:45:26,330]  INFO main.py [ line:34 ] start trading...............................
- [2022-07-26 14:47:26,972]  INFO main.py [ line:34 ] start trading...............................
- [2022-07-26 14:47:35,072]  INFO main.py [ line:34 ] start trading...............................
- [2022-07-26 14:48:01,984]  INFO main.py [ line:34 ] start trading...............................
- [2022-07-26 15:15:09,529]  INFO MaTrade.py [ line:67 ] 行情处于趋势之中
- [2022-07-26 15:35:41,434]  INFO main.py [ line:34 ] start trading...............................
- [2022-07-26 15:35:56,135]  INFO MaTrade.py [ line:67 ] 行情处于趋势之中
- [2022-07-26 15:35:57,472]  INFO MaTrade.py [ line:73 ] 价格接近均线 %1 附近
- [2022-07-26 15:36:03,337]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第0次
- [2022-07-26 15:36:12,013]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第1次
- [2022-07-26 15:36:30,095]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第2次
- [2022-07-26 15:36:33,363]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第3次
- [2022-07-26 15:36:34,711]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第4次
- [2022-07-26 15:36:36,055]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第5次
- [2022-07-26 15:36:37,399]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第6次
- [2022-07-26 15:36:38,741]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第7次
- [2022-07-26 15:36:40,087]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第8次
- [2022-07-26 15:36:41,438]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第9次
- [2022-07-26 15:36:42,788]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第10次
- [2022-07-26 15:36:44,154]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第11次
- [2022-07-26 15:36:45,495]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第12次
- [2022-07-26 15:36:46,845]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第13次
- [2022-07-26 15:36:48,193]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第14次
- [2022-07-26 15:36:53,438]  INFO main.py [ line:34 ] start trading...............................
- [2022-07-26 15:37:04,407]  INFO MaTrade.py [ line:67 ] 行情处于趋势之中
- [2022-07-26 15:37:05,741]  INFO MaTrade.py [ line:73 ] 价格接近均线 %1 附近
- [2022-07-26 15:37:05,741]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第0次
- [2022-07-26 15:37:07,086]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第1次
- [2022-07-26 15:37:08,417]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第2次
- [2022-07-26 15:37:09,767]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第3次
- [2022-07-26 15:37:11,100]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第4次
- [2022-07-26 15:37:12,447]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第5次
- [2022-07-26 15:37:13,789]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第6次
- [2022-07-26 15:37:15,129]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第7次
- [2022-07-26 15:37:16,473]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第8次
- [2022-07-26 15:37:17,805]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第9次
- [2022-07-26 15:37:19,133]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第10次
- [2022-07-26 15:37:20,477]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第11次
- [2022-07-26 15:37:21,823]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第12次
- [2022-07-26 15:37:23,164]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第13次
- [2022-07-26 15:37:24,494]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第14次
- [2022-07-26 15:37:25,844]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第15次
- [2022-07-26 15:37:27,192]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第16次
- [2022-07-26 15:37:28,544]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第17次
- [2022-07-26 15:37:29,897]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第18次
- [2022-07-26 15:38:33,802]  INFO main.py [ line:34 ] start trading...............................
- [2022-07-26 15:38:40,417]  INFO main.py [ line:34 ] start trading...............................
- [2022-07-26 15:38:51,374]  INFO MaTrade.py [ line:67 ] 行情处于趋势之中
- [2022-07-26 15:52:42,201]  ERROR main.py [ line:39 ] HTTPSConnectionPool(host='www.okx.com', port=443): Max retries exceeded with url: /api/v5/public/time (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x00000155304A42B0>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。'))
- [2022-07-26 16:05:24,135]  INFO main.py [ line:34 ] start trading...............................
- [2022-07-26 16:05:35,707]  INFO MaTrade.py [ line:67 ] 行情处于趋势之中
- [2022-07-26 16:10:19,059]  INFO main.py [ line:34 ] start trading...............................
- [2022-07-26 16:10:29,963]  ERROR main.py [ line:39 ] API Request Error(code=51000): Parameter bar error.
- [2022-07-26 16:10:42,017]  INFO main.py [ line:34 ] start trading...............................
- [2022-07-26 16:10:52,977]  INFO MaTrade.py [ line:67 ] 行情处于趋势之中
- [2022-07-26 16:31:44,387]  INFO main.py [ line:34 ] start trading...............................
- [2022-07-26 16:31:55,556]  INFO MaTrade.py [ line:67 ] 行情处于趋势之中
- [2022-07-26 17:51:56,528]  INFO main.py [ line:34 ] start trading...............................
- [2022-07-26 17:52:07,504]  INFO MaTrade.py [ line:67 ] 行情处于趋势之中
- [2022-07-26 17:57:48,072]  INFO main.py [ line:34 ] start trading...............................
- [2022-07-26 17:57:59,029]  INFO MaTrade.py [ line:67 ] 行情处于趋势之中
- [2022-07-26 17:58:00,334]  INFO MaTrade.py [ line:73 ] 价格接近均线 %1 附近
- [2022-07-26 17:58:00,335]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第0次
- [2022-07-26 17:58:01,643]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第1次
- [2022-07-26 17:58:02,974]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第2次
- [2022-07-26 17:58:04,294]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第3次
- [2022-07-26 17:58:05,641]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第4次
- [2022-07-26 17:58:06,957]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第5次
- [2022-07-26 17:58:08,283]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第6次
- [2022-07-26 17:58:09,615]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第7次
- [2022-07-26 17:58:10,927]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第8次
- [2022-07-26 17:58:12,246]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第9次
- [2022-07-26 17:58:13,567]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第10次
- [2022-07-26 17:58:14,874]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第11次
- [2022-07-26 17:58:16,189]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第12次
- [2022-07-26 17:58:17,498]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第13次
- [2022-07-26 17:58:18,811]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第14次
- [2022-07-26 17:58:20,134]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第15次
- [2022-07-26 17:58:21,459]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第16次
- [2022-07-26 17:58:22,795]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第17次
- [2022-07-26 17:58:24,131]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第18次
- [2022-07-26 17:58:25,464]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第19次
- [2022-07-26 17:58:26,772]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第20次
- [2022-07-26 17:58:28,086]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第21次
- [2022-07-26 17:58:29,395]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第22次
- [2022-07-26 17:58:30,696]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第23次
- [2022-07-26 17:58:32,006]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第24次
- [2022-07-26 17:58:33,324]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第25次
- [2022-07-26 17:58:34,631]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第26次
- [2022-07-26 17:58:35,941]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第27次
- [2022-07-26 17:58:37,260]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第28次
- [2022-07-26 17:58:38,577]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第29次
- [2022-07-26 17:58:39,891]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第30次
- [2022-07-26 17:58:41,196]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第31次
- [2022-07-26 17:58:42,546]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第32次
- [2022-07-26 17:58:43,863]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第33次
- [2022-07-26 17:58:45,190]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第34次
- [2022-07-26 17:58:46,510]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第35次
- [2022-07-26 17:58:47,832]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第36次
- [2022-07-26 17:58:49,154]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第37次
- [2022-07-26 17:58:50,460]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第38次
- [2022-07-26 17:58:51,773]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第39次
- [2022-07-26 17:58:53,085]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第40次
- [2022-07-26 17:58:54,415]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第41次
- [2022-07-26 17:58:55,742]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第42次
- [2022-07-26 17:58:57,060]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第43次
- [2022-07-26 17:58:58,377]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第44次
- [2022-07-26 17:58:59,689]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第45次
- [2022-07-26 17:59:00,996]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第46次
- [2022-07-26 17:59:02,301]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第47次
- [2022-07-26 17:59:03,617]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第48次
- [2022-07-26 17:59:04,929]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第49次
- [2022-07-26 17:59:06,247]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第50次
- [2022-07-26 17:59:07,553]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第51次
- [2022-07-26 17:59:08,869]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第52次
- [2022-07-26 17:59:10,175]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第53次
- [2022-07-26 17:59:11,480]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第54次
- [2022-07-26 17:59:12,790]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第55次
- [2022-07-26 17:59:14,090]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第56次
- [2022-07-26 17:59:15,418]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第57次
- [2022-07-26 17:59:16,731]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第58次
- [2022-07-26 17:59:18,044]  INFO MaTrade.py [ line:439 ] 循环检测1m信号, 第59次
- [2022-07-26 17:59:19,415]  INFO MaTrade.py [ line:456 ] 没有3分钟信号 ，结束程序
- [2022-07-26 17:59:19,415]  ERROR main.py [ line:39 ] No active exception to reraise
- [2022-07-26 18:04:36,022]  INFO main.py [ line:34 ] start trading...............................
- [2022-07-26 18:04:47,254]  INFO MaTrade.py [ line:67 ] 行情处于趋势之中
- [2022-07-26 19:19:04,258]  ERROR main.py [ line:39 ] HTTPSConnectionPool(host='www.okx.com', port=443): Max retries exceeded with url: /api/v5/public/time (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x00000225FD5B24F0>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。'))
- [2022-07-26 19:44:46,357]  INFO main.py [ line:34 ] start trading...............................
- [2022-07-26 19:44:57,586]  INFO MaTrade.py [ line:67 ] 行情处于趋势之中
- [2022-07-26 19:55:33,267]  INFO MaTrade.py [ line:73 ] 价格接近均线 %1 附近
- [2022-07-26 19:55:33,267]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第0次
- [2022-07-26 19:55:34,670]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第1次
- [2022-07-26 19:55:36,060]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第2次
- [2022-07-26 19:55:37,454]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第3次
- [2022-07-26 19:55:38,851]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第4次
- [2022-07-26 19:55:40,282]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第5次
- [2022-07-26 19:55:41,691]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第6次
- [2022-07-26 19:55:43,080]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第7次
- [2022-07-26 19:55:44,490]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第8次
- [2022-07-26 19:55:45,888]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第9次
- [2022-07-26 19:55:47,278]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第10次
- [2022-07-26 19:55:48,670]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第11次
- [2022-07-26 19:55:50,063]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第12次
- [2022-07-26 19:55:51,449]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第13次
- [2022-07-26 19:55:52,878]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第14次
- [2022-07-26 19:55:54,275]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第15次
- [2022-07-26 19:55:55,720]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第16次
- [2022-07-26 19:55:57,108]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第17次
- [2022-07-26 19:55:58,526]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第18次
- [2022-07-26 19:55:59,916]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第19次
- [2022-07-26 19:56:01,309]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第20次
- [2022-07-26 19:56:02,692]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第21次
- [2022-07-26 19:56:04,077]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第22次
- [2022-07-26 19:56:05,494]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第23次
- [2022-07-26 19:56:06,889]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第24次
- [2022-07-26 19:56:08,279]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第25次
- [2022-07-26 19:56:09,745]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第26次
- [2022-07-26 19:56:11,139]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第27次
- [2022-07-26 19:56:12,531]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第28次
- [2022-07-26 19:56:13,918]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第29次
- [2022-07-26 19:56:15,308]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第30次
- [2022-07-26 19:56:16,767]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第31次
- [2022-07-26 19:56:18,160]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第32次
- [2022-07-26 19:56:19,572]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第33次
- [2022-07-26 19:56:20,967]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第34次
- [2022-07-26 19:56:22,486]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第35次
- [2022-07-26 19:56:23,887]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第36次
- [2022-07-26 19:56:25,266]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第37次
- [2022-07-26 19:56:26,583]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第38次
- [2022-07-26 19:56:27,890]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第39次
- [2022-07-26 19:56:29,194]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第40次
- [2022-07-26 19:56:30,504]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第41次
- [2022-07-26 19:56:31,809]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第42次
- [2022-07-26 19:56:33,171]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第43次
- [2022-07-26 19:56:34,481]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第44次
- [2022-07-26 19:56:35,799]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第45次
- [2022-07-26 19:56:37,103]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第46次
- [2022-07-26 19:56:38,416]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第47次
- [2022-07-26 19:56:39,722]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第48次
- [2022-07-26 19:56:41,039]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第49次
- [2022-07-26 19:56:42,352]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第50次
- [2022-07-26 19:56:43,663]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第51次
- [2022-07-26 19:56:45,202]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第52次
- [2022-07-26 19:56:46,569]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第53次
- [2022-07-26 19:56:47,879]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第54次
- [2022-07-26 19:56:49,189]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第55次
- [2022-07-26 19:56:50,494]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第56次
- [2022-07-26 19:56:51,811]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第57次
- [2022-07-26 19:56:53,209]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第58次
- [2022-07-26 19:56:54,514]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第59次
- [2022-07-26 19:56:55,826]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第60次
- [2022-07-26 19:56:57,171]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第61次
- [2022-07-26 19:56:58,498]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第62次
- [2022-07-26 19:56:59,806]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第63次
- [2022-07-26 19:57:01,117]  INFO MaTrade.py [ line:439 ] 循环检测3m信号, 第64次
- [2022-07-26 19:57:01,448]  INFO MaTrade.py [ line:450 ] 满足3分钟信号
- [2022-07-26 19:57:01,448]  INFO MaTrade.py [ line:78 ] 3分钟满足开仓条件，准备开仓
- [2022-07-26 19:57:01,944]  INFO MaTrade.py [ line:260 ] 开仓成功！！！！！！
- [2022-07-26 23:02:28,651]  ERROR main.py [ line:39 ] HTTPSConnectionPool(host='www.okx.com', port=443): Max retries exceeded with url: /api/v5/public/time (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001B96DC8C130>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。'))
- [2022-07-27 08:37:10,353]  INFO main.py [ line:34 ] start trading...............................
- [2022-07-27 08:51:37,245]  INFO main.py [ line:34 ] start trading...............................
- [2022-07-27 08:51:42,174]  INFO main.py [ line:34 ] start trading...............................
- [2022-07-27 08:51:53,151]  INFO MaTrade.py [ line:67 ] 行情处于趋势之中
- [2022-07-27 11:06:12,442]  INFO main.py [ line:34 ] start trading...............................
- [2022-07-27 11:14:31,076]  INFO main.py [ line:34 ] start trading...............................
- [2022-07-27 11:14:42,083]  INFO MaTrade.py [ line:68 ] 行情处于趋势之中
- [2022-07-27 11:19:19,588]  INFO main.py [ line:34 ] start trading...............................
- [2022-07-27 11:19:30,665]  INFO MaTrade.py [ line:68 ] 1H行情处于趋势之中
- [2022-07-27 11:28:41,183]  INFO main.py [ line:34 ] start trading...............................
- [2022-07-27 11:28:52,149]  INFO MaTrade.py [ line:72 ] 1H行情处于趋势之中
- [2022-07-27 11:42:40,023]  INFO main.py [ line:34 ] start trading...............................
- [2022-07-27 17:13:36,806]  INFO main.py [ line:36 ] start trading...............................
- [2022-07-27 17:14:39,987]  INFO main.py [ line:36 ] start trading...............................
- [2022-07-27 17:15:01,628]  ERROR main.py [ line:41 ] HTTPSConnectionPool(host='www.okx.com', port=443): Max retries exceeded with url: /api/v5/public/time (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x0000026382E1BA30>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。'))
+ [2022-08-09 14:46:53,598]  INFO main.py [ line:26 ] start trading...............................
+ [2022-08-09 14:46:57,747]  INFO MaTrade.py [ line:99 ] 信号1已确认!
+ [2022-08-09 14:46:57,747]  INFO MaTrade.py [ line:514 ] 正在判断信号2....................
+ [2022-08-09 14:54:10,211]  INFO main.py [ line:26 ] start trading...............................
+ [2022-08-09 14:54:14,372]  INFO MaTrade.py [ line:99 ] 信号1已确认!
+ [2022-08-09 14:54:14,372]  INFO MaTrade.py [ line:514 ] 正在判断信号2....................
+ [2022-08-09 14:55:15,531]  INFO main.py [ line:26 ] start trading...............................
+ [2022-08-09 15:07:14,760]  INFO main.py [ line:26 ] start trading...............................
+ [2022-08-09 15:41:25,267]  INFO main.py [ line:26 ] start trading...............................
+ [2022-08-09 15:41:28,788]  ERROR main.py [ line:32 ] API Request Error(code=50101): APIKey does not match current environment.
+ [2022-08-09 15:42:11,034]  INFO main.py [ line:26 ] start trading...............................
+ [2022-08-09 15:45:20,398]  INFO main.py [ line:26 ] start trading...............................
+ [2022-08-09 15:46:01,295]  INFO main.py [ line:26 ] start trading...............................
+ [2022-08-09 15:46:11,862]  INFO main.py [ line:26 ] start trading...............................
+ [2022-08-09 15:47:06,105]  INFO MaTrade.py [ line:99 ] 信号1已确认!
+ [2022-08-09 15:47:06,105]  INFO MaTrade.py [ line:514 ] 正在判断信号2....................
+ [2022-08-09 15:50:12,458]  INFO main.py [ line:26 ] start trading...............................
+ [2022-08-09 15:53:07,843]  INFO main.py [ line:26 ] start trading...............................
+ [2022-08-09 15:53:08,405]  ERROR MaTrade.py [ line:602 ] 大周期错误
+ [2022-08-09 15:53:28,866]  INFO main.py [ line:26 ] start trading...............................
+ [2022-08-09 15:53:29,429]  ERROR MaTrade.py [ line:602 ] 大周期错误
+ [2022-08-09 15:53:44,054]  INFO main.py [ line:26 ] start trading...............................
+ [2022-08-09 15:53:45,242]  ERROR MaTrade.py [ line:602 ] 大周期错误
+ [2022-08-09 15:54:04,966]  INFO main.py [ line:26 ] start trading...............................
+ [2022-08-09 15:54:05,557]  ERROR MaTrade.py [ line:602 ] 大周期错误
+ [2022-08-09 16:20:37,368]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-09 16:20:38,550]  ERROR MaTrade.py [ line:604 ] 大周期错误
+ [2022-08-09 16:20:51,663]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-09 16:22:19,172]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-09 19:28:25,085]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-09 19:28:52,537]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-09 19:30:19,307]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-09 19:31:09,399]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-09 19:31:37,390]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 11:34:30,702]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 11:35:06,009]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 11:39:06,385]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 11:41:03,354]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 11:43:12,455]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 11:51:48,812]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 11:53:26,597]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 11:59:53,350]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 12:29:39,842]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 12:35:43,343]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 14:16:32,547]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 14:17:49,076]  INFO MaTrade.py [ line:104 ] 信号1已确认!
+ [2022-08-10 14:17:49,617]  INFO MaTrade.py [ line:533 ] 正在判断信号2....................
+ [2022-08-10 14:17:52,647]  INFO MaTrade.py [ line:552 ] 信号2已确认！
+ [2022-08-10 14:17:53,712]  INFO MaTrade.py [ line:580 ] 开始循环检测信号3
+ [2022-08-10 14:17:54,119]  INFO MaTrade.py [ line:598 ] 满足3分钟信号
+ [2022-08-10 14:17:55,178]  INFO MaTrade.py [ line:113 ] 3分钟满足开仓条件，如果价格在均线附近 准备开仓
+ [2022-08-10 14:17:56,781]  INFO MaTrade.py [ line:342 ] open          1676.67
+high          1676.68
+low           1672.61
+close         1673.55
+volume          92806
+volCcy         9280.6
+MA60      1687.811167
+Name: 2022-08-10 14:15:00, dtype: object
+ [2022-08-10 14:17:56,782]  INFO MaTrade.py [ line:353 ] 价格远离均线，信号无效，重新检测中
+ [2022-08-10 14:18:24,571]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 14:19:57,844]  INFO MaTrade.py [ line:104 ] 信号1已确认!
+ [2022-08-10 14:19:58,262]  INFO MaTrade.py [ line:534 ] 正在判断信号2....................
+ [2022-08-10 14:20:00,801]  INFO MaTrade.py [ line:553 ] 信号2已确认！
+ [2022-08-10 14:20:01,695]  INFO MaTrade.py [ line:581 ] 开始循环检测信号3
+ [2022-08-10 14:20:02,282]  INFO MaTrade.py [ line:599 ] 满足3分钟信号
+ [2022-08-10 14:20:03,288]  INFO MaTrade.py [ line:113 ] 3分钟满足开仓条件，如果价格在均线附近 准备开仓
+ [2022-08-10 14:20:04,751]  INFO MaTrade.py [ line:343 ] open          1676.67
+high          1676.68
+low           1672.61
+close          1675.8
+volume         134189
+volCcy        13418.9
+MA60      1687.848667
+Name: 2022-08-10 14:15:00, dtype: object
+ [2022-08-10 14:20:04,752]  INFO MaTrade.py [ line:354 ] 价格远离均线，信号无效，重新检测中
+ [2022-08-10 14:21:04,083]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 14:21:23,994]  INFO MaTrade.py [ line:104 ] 信号1已确认!
+ [2022-08-10 14:21:23,995]  INFO MaTrade.py [ line:534 ] 正在判断信号2....................
+ [2022-08-10 14:21:27,001]  INFO MaTrade.py [ line:553 ] 信号2已确认！
+ [2022-08-10 14:21:27,002]  INFO MaTrade.py [ line:581 ] 开始循环检测信号3
+ [2022-08-10 14:21:27,341]  INFO MaTrade.py [ line:599 ] 满足3分钟信号
+ [2022-08-10 14:21:27,341]  INFO MaTrade.py [ line:113 ] 3分钟满足开仓条件，如果价格在均线附近 准备开仓
+ [2022-08-10 14:21:28,261]  INFO MaTrade.py [ line:343 ] open        1676.67
+high        1676.68
+low         1672.61
+close       1675.37
+volume       143535
+volCcy      14353.5
+MA60      1687.8415
+Name: 2022-08-10 14:15:00, dtype: object
+ [2022-08-10 14:21:28,262]  INFO MaTrade.py [ line:354 ] 价格远离均线，信号无效，重新检测中
+ [2022-08-10 14:21:59,901]  ERROR MaTrade.py [ line:369 ] 仓位太小， 无法开仓
+ [2022-08-10 14:23:14,744]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 14:23:49,460]  INFO MaTrade.py [ line:104 ] 信号1已确认!
+ [2022-08-10 14:23:49,460]  INFO MaTrade.py [ line:534 ] 正在判断信号2....................
+ [2022-08-10 14:23:51,889]  INFO MaTrade.py [ line:553 ] 信号2已确认！
+ [2022-08-10 14:23:51,889]  INFO MaTrade.py [ line:581 ] 开始循环检测信号3
+ [2022-08-10 14:23:53,309]  INFO MaTrade.py [ line:599 ] 满足3分钟信号
+ [2022-08-10 14:23:53,309]  INFO MaTrade.py [ line:113 ] 3分钟满足开仓条件，如果价格在均线附近 准备开仓
+ [2022-08-10 14:23:54,695]  INFO MaTrade.py [ line:343 ] open          1676.67
+high          1678.61
+low           1672.61
+close         1677.55
+volume         178308
+volCcy        17830.8
+MA60      1687.877833
+Name: 2022-08-10 14:15:00, dtype: object
+ [2022-08-10 14:23:54,696]  INFO MaTrade.py [ line:354 ] 价格远离均线，信号无效，重新检测中
+ [2022-08-10 14:25:28,263]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 14:26:04,462]  INFO MaTrade.py [ line:104 ] 信号1已确认!
+ [2022-08-10 14:26:04,462]  INFO MaTrade.py [ line:534 ] 正在判断信号2....................
+ [2022-08-10 14:26:06,824]  INFO MaTrade.py [ line:553 ] 信号2已确认！
+ [2022-08-10 14:26:06,824]  INFO MaTrade.py [ line:581 ] 开始循环检测信号3
+ [2022-08-10 14:26:07,231]  INFO MaTrade.py [ line:599 ] 满足3分钟信号
+ [2022-08-10 14:26:07,231]  INFO MaTrade.py [ line:113 ] 3分钟满足开仓条件，如果价格在均线附近 准备开仓
+ [2022-08-10 14:26:08,588]  INFO MaTrade.py [ line:343 ] open        1676.67
+high           1680
+low         1672.61
+close       1679.15
+volume       211174
+volCcy      21117.4
+MA60      1687.9045
+Name: 2022-08-10 14:15:00, dtype: object
+ [2022-08-10 14:26:08,589]  INFO MaTrade.py [ line:354 ] 价格远离均线，信号无效，重新检测中
+ [2022-08-10 14:33:14,274]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 14:33:29,749]  INFO MaTrade.py [ line:104 ] 信号1已确认!
+ [2022-08-10 14:33:29,749]  INFO MaTrade.py [ line:534 ] 正在判断信号2....................
+ [2022-08-10 14:33:42,234]  INFO MaTrade.py [ line:553 ] 信号2已确认！
+ [2022-08-10 14:33:42,234]  INFO MaTrade.py [ line:581 ] 开始循环检测信号3
+ [2022-08-10 14:33:43,286]  INFO MaTrade.py [ line:599 ] 满足3分钟信号
+ [2022-08-10 14:33:43,286]  INFO MaTrade.py [ line:113 ] 3分钟满足开仓条件，如果价格在均线附近 准备开仓
+ [2022-08-10 14:33:43,742]  INFO MaTrade.py [ line:343 ] open        1676.58
+high        1678.14
+low         1674.33
+close       1674.33
+volume        41838
+volCcy       4183.8
+MA60      1687.6085
+Name: 2022-08-10 14:30:00, dtype: object
+ [2022-08-10 14:33:43,743]  INFO MaTrade.py [ line:354 ] 价格远离均线，信号无效，重新检测中
+ [2022-08-10 14:35:48,905]  INFO MaTrade.py [ line:395 ] 开仓成功！！！！！！
+ [2022-08-10 14:47:32,768]  INFO MaTrade.py [ line:269 ] 等待止盈信号
+ [2022-08-10 14:48:24,427]  ERROR main.py [ line:33 ] list index out of range
+ [2022-08-10 14:57:18,697]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 14:58:38,532]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 14:59:01,058]  ERROR basetrade.py [ line:230 ] initialization account error: api_key: f76a1e05-cc56-43fd-aa6a-88aa3e51b6a2
+ [2022-08-10 15:00:15,171]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 15:00:37,687]  ERROR basetrade.py [ line:230 ] initialization account error: api_key: f76a1e05-cc56-43fd-aa6a-88aa3e51b6a2
+ [2022-08-10 15:00:51,035]  INFO MaTrade.py [ line:104 ] 信号1已确认!
+ [2022-08-10 15:00:51,889]  INFO MaTrade.py [ line:533 ] 正在判断信号2....................
+ [2022-08-10 15:00:54,088]  INFO MaTrade.py [ line:552 ] 信号2已确认！
+ [2022-08-10 15:00:59,799]  INFO MaTrade.py [ line:580 ] 开始循环检测信号3
+ [2022-08-10 15:01:00,021]  INFO MaTrade.py [ line:598 ] 满足3分钟信号
+ [2022-08-10 15:01:00,779]  INFO MaTrade.py [ line:113 ] 3分钟满足开仓条件，如果价格在均线附近 准备开仓
+ [2022-08-10 15:01:01,926]  INFO MaTrade.py [ line:343 ] open           1679.7
+high           1680.4
+low              1679
+close         1680.16
+volume          11586
+volCcy         1158.6
+MA60      1687.533333
+Name: 2022-08-10 15:00:00, dtype: object
+ [2022-08-10 15:01:01,927]  INFO MaTrade.py [ line:351 ] 价格在均线附近，准备开仓
+ [2022-08-10 15:01:15,481]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 15:01:23,092]  INFO MaTrade.py [ line:104 ] 信号1已确认!
+ [2022-08-10 15:01:23,092]  INFO MaTrade.py [ line:533 ] 正在判断信号2....................
+ [2022-08-10 15:01:25,501]  INFO MaTrade.py [ line:552 ] 信号2已确认！
+ [2022-08-10 15:01:25,501]  INFO MaTrade.py [ line:580 ] 开始循环检测信号3
+ [2022-08-10 15:01:25,711]  INFO MaTrade.py [ line:598 ] 满足3分钟信号
+ [2022-08-10 15:01:25,711]  INFO MaTrade.py [ line:113 ] 3分钟满足开仓条件，如果价格在均线附近 准备开仓
+ [2022-08-10 15:01:25,920]  INFO MaTrade.py [ line:343 ] open           1679.7
+high          1680.73
+low              1679
+close         1680.25
+volume          14242
+volCcy         1424.2
+MA60      1687.534833
+Name: 2022-08-10 15:00:00, dtype: object
+ [2022-08-10 15:01:25,921]  INFO MaTrade.py [ line:351 ] 价格在均线附近，准备开仓
+ [2022-08-10 15:05:30,750]  ERROR main.py [ line:33 ] unsupported operand type(s) for /: 'str' and 'int'
+ [2022-08-10 15:14:32,137]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 15:14:42,766]  INFO MaTrade.py [ line:104 ] 信号1已确认!
+ [2022-08-10 15:14:42,766]  INFO MaTrade.py [ line:533 ] 正在判断信号2....................
+ [2022-08-10 15:14:44,994]  INFO MaTrade.py [ line:552 ] 信号2已确认！
+ [2022-08-10 15:14:44,994]  INFO MaTrade.py [ line:580 ] 开始循环检测信号3
+ [2022-08-10 15:14:45,215]  INFO MaTrade.py [ line:598 ] 满足3分钟信号
+ [2022-08-10 15:14:45,215]  INFO MaTrade.py [ line:113 ] 3分钟满足开仓条件，如果价格在均线附近 准备开仓
+ [2022-08-10 15:14:45,425]  INFO MaTrade.py [ line:343 ] open           1679.7
+high          1687.54
+low              1679
+close         1685.53
+volume         307374
+volCcy        30737.4
+MA60      1687.622833
+Name: 2022-08-10 15:00:00, dtype: object
+ [2022-08-10 15:14:45,426]  INFO MaTrade.py [ line:351 ] 价格在均线附近，准备开仓
+ [2022-08-10 15:20:49,681]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 15:20:57,834]  INFO MaTrade.py [ line:104 ] 信号1已确认!
+ [2022-08-10 15:20:57,834]  INFO MaTrade.py [ line:534 ] 正在判断信号2....................
+ [2022-08-10 15:21:00,035]  INFO MaTrade.py [ line:553 ] 信号2已确认！
+ [2022-08-10 15:21:00,036]  INFO MaTrade.py [ line:581 ] 开始循环检测信号3
+ [2022-08-10 15:21:00,237]  INFO MaTrade.py [ line:599 ] 满足3分钟信号
+ [2022-08-10 15:21:00,237]  INFO MaTrade.py [ line:113 ] 3分钟满足开仓条件，如果价格在均线附近 准备开仓
+ [2022-08-10 15:21:00,440]  INFO MaTrade.py [ line:343 ] open        1686.25
+high        1688.63
+low         1682.36
+close        1685.8
+volume       143573
+volCcy      14357.3
+MA60      1687.7325
+Name: 2022-08-10 15:15:00, dtype: object
+ [2022-08-10 15:21:00,441]  INFO MaTrade.py [ line:351 ] 价格在均线附近，准备开仓
+ [2022-08-10 15:21:13,280]  ERROR MaTrade.py [ line:481 ] no order details!!!*******************************
+ [2022-08-10 15:21:55,308]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 15:22:00,884]  INFO MaTrade.py [ line:104 ] 信号1已确认!
+ [2022-08-10 15:22:00,884]  INFO MaTrade.py [ line:534 ] 正在判断信号2....................
+ [2022-08-10 15:22:03,106]  INFO MaTrade.py [ line:553 ] 信号2已确认！
+ [2022-08-10 15:22:03,107]  INFO MaTrade.py [ line:581 ] 开始循环检测信号3
+ [2022-08-10 15:22:03,312]  INFO MaTrade.py [ line:599 ] 满足3分钟信号
+ [2022-08-10 15:22:03,312]  INFO MaTrade.py [ line:113 ] 3分钟满足开仓条件，如果价格在均线附近 准备开仓
+ [2022-08-10 15:22:03,539]  INFO MaTrade.py [ line:343 ] open          1686.25
+high          1688.63
+low           1682.36
+close         1684.37
+volume         149540
+volCcy          14954
+MA60      1687.708667
+Name: 2022-08-10 15:15:00, dtype: object
+ [2022-08-10 15:22:03,540]  INFO MaTrade.py [ line:351 ] 价格在均线附近，准备开仓
+ [2022-08-10 15:22:32,036]  ERROR MaTrade.py [ line:481 ] no order details!!!*******************************
+ [2022-08-10 15:23:05,509]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 15:23:11,054]  INFO MaTrade.py [ line:104 ] 信号1已确认!
+ [2022-08-10 15:23:11,054]  INFO MaTrade.py [ line:534 ] 正在判断信号2....................
+ [2022-08-10 15:23:13,329]  INFO MaTrade.py [ line:553 ] 信号2已确认！
+ [2022-08-10 15:23:13,329]  INFO MaTrade.py [ line:581 ] 开始循环检测信号3
+ [2022-08-10 15:23:13,537]  INFO MaTrade.py [ line:599 ] 满足3分钟信号
+ [2022-08-10 15:23:13,537]  INFO MaTrade.py [ line:113 ] 3分钟满足开仓条件，如果价格在均线附近 准备开仓
+ [2022-08-10 15:23:13,738]  INFO MaTrade.py [ line:343 ] open          1686.25
+high          1688.63
+low           1682.36
+close         1683.74
+volume         156672
+volCcy        15667.2
+MA60      1687.698167
+Name: 2022-08-10 15:15:00, dtype: object
+ [2022-08-10 15:23:13,739]  INFO MaTrade.py [ line:351 ] 价格在均线附近，准备开仓
+ [2022-08-10 15:23:53,112]  ERROR basetrade.py [ line:68 ] Operation is not supported under the current account mode
+ [2022-08-10 15:30:15,401]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 15:30:37,905]  ERROR basetrade.py [ line:224 ] initialization account error: api_key: f76a1e05-cc56-43fd-aa6a-88aa3e51b6a2
+ [2022-08-10 15:30:43,022]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 15:30:47,100]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 15:30:53,512]  INFO MaTrade.py [ line:104 ] 信号1已确认!
+ [2022-08-10 15:30:53,512]  INFO MaTrade.py [ line:534 ] 正在判断信号2....................
+ [2022-08-10 15:30:55,742]  INFO MaTrade.py [ line:553 ] 信号2已确认！
+ [2022-08-10 15:30:55,742]  INFO MaTrade.py [ line:581 ] 开始循环检测信号3
+ [2022-08-10 15:30:56,945]  INFO MaTrade.py [ line:599 ] 满足3分钟信号
+ [2022-08-10 15:30:56,945]  INFO MaTrade.py [ line:113 ] 3分钟满足开仓条件，如果价格在均线附近 准备开仓
+ [2022-08-10 15:30:57,149]  INFO MaTrade.py [ line:343 ] open           1684.5
+high          1686.51
+low            1684.5
+close         1685.44
+volume          16417
+volCcy         1641.7
+MA60      1687.660167
+Name: 2022-08-10 15:30:00, dtype: object
+ [2022-08-10 15:30:57,150]  INFO MaTrade.py [ line:351 ] 价格在均线附近，准备开仓
+ [2022-08-10 15:45:01,778]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 15:45:07,582]  INFO MaTrade.py [ line:104 ] 信号1已确认!
+ [2022-08-10 15:45:07,583]  INFO MaTrade.py [ line:537 ] 正在判断信号2....................
+ [2022-08-10 15:45:09,797]  INFO MaTrade.py [ line:556 ] 信号2已确认！
+ [2022-08-10 15:45:09,797]  INFO MaTrade.py [ line:584 ] 开始循环检测信号3
+ [2022-08-10 15:45:10,014]  INFO MaTrade.py [ line:602 ] 满足3分钟信号
+ [2022-08-10 15:45:10,014]  INFO MaTrade.py [ line:113 ] 3分钟满足开仓条件，如果价格在均线附近 准备开仓
+ [2022-08-10 15:45:10,247]  INFO MaTrade.py [ line:343 ] open          1688.46
+high          1688.66
+low            1688.3
+close          1688.3
+volume            603
+volCcy           60.3
+MA60      1687.716833
+Name: 2022-08-10 15:45:00, dtype: object
+ [2022-08-10 15:45:10,248]  INFO MaTrade.py [ line:351 ] 价格在均线附近，准备开仓
+ [2022-08-10 15:46:35,139]  ERROR basetrade.py [ line:68 ] SL trigger price can not be higher than the last price.
+ [2022-08-10 15:46:35,140]  ERROR MaTrade.py [ line:522 ] 止损止盈设置错误，，，SL trigger price can not be higher than the last price.
+ [2022-08-10 15:46:48,857]  INFO MaTrade.py [ line:396 ] 开仓成功！！！！！！
+ [2022-08-10 15:46:56,420]  INFO MaTrade.py [ line:269 ] 等待止盈信号
+ [2022-08-10 15:47:23,727]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 15:47:30,322]  INFO MaTrade.py [ line:104 ] 信号1已确认!
+ [2022-08-10 15:47:30,322]  INFO MaTrade.py [ line:537 ] 正在判断信号2....................
+ [2022-08-10 15:47:32,557]  INFO MaTrade.py [ line:556 ] 信号2已确认！
+ [2022-08-10 15:47:32,557]  INFO MaTrade.py [ line:584 ] 开始循环检测信号3
+ [2022-08-10 15:47:32,789]  INFO MaTrade.py [ line:602 ] 满足3分钟信号
+ [2022-08-10 15:47:32,789]  INFO MaTrade.py [ line:113 ] 3分钟满足开仓条件，如果价格在均线附近 准备开仓
+ [2022-08-10 15:47:33,026]  INFO MaTrade.py [ line:343 ] open       1688.46
+high       1689.59
+low        1686.47
+close      1688.37
+volume       21762
+volCcy      2176.2
+MA60      1687.718
+Name: 2022-08-10 15:45:00, dtype: object
+ [2022-08-10 15:47:33,027]  INFO MaTrade.py [ line:351 ] 价格在均线附近，准备开仓
+ [2022-08-10 15:48:42,471]  INFO MaTrade.py [ line:396 ] 开仓成功！！！！！！
+ [2022-08-10 16:18:17,510]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 16:18:24,269]  INFO MaTrade.py [ line:104 ] 信号1已确认!
+ [2022-08-10 16:18:24,269]  INFO MaTrade.py [ line:541 ] 正在判断信号2....................
+ [2022-08-10 16:18:26,494]  INFO MaTrade.py [ line:560 ] 信号2已确认！
+ [2022-08-10 16:18:26,494]  INFO MaTrade.py [ line:588 ] 开始循环检测信号3
+ [2022-08-10 16:18:26,711]  INFO MaTrade.py [ line:606 ] 满足3分钟信号
+ [2022-08-10 16:18:26,711]  INFO MaTrade.py [ line:113 ] 3分钟满足开仓条件，如果价格在均线附近 准备开仓
+ [2022-08-10 16:18:26,946]  INFO MaTrade.py [ line:343 ] open          1685.94
+high          1689.66
+low           1685.54
+close          1688.4
+volume          38418
+volCcy         3841.8
+MA60      1687.423667
+Name: 2022-08-10 16:15:00, dtype: object
+ [2022-08-10 16:18:26,950]  INFO MaTrade.py [ line:351 ] 价格在均线附近，准备开仓
+ [2022-08-10 16:18:35,868]  INFO MaTrade.py [ line:396 ] 开仓成功！！！！！！
+ [2022-08-10 16:23:21,097]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 16:23:22,350]  ERROR basetrade.py [ line:236 ] No operate Account Info!!!
+ [2022-08-10 16:23:22,351]  ERROR main.py [ line:33 ] No active exception to reraise
+ [2022-08-10 16:28:27,198]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 16:51:53,232]  ERROR basetrade.py [ line:214 ] initialization account error: api_key: f76a1e05-cc56-43fd-aa6a-88aa3e51b6a2
+ [2022-08-10 16:51:56,530]  INFO MaTrade.py [ line:58 ] 信号1已确认!
+ [2022-08-10 16:51:56,530]  INFO MaTrade.py [ line:541 ] 正在判断信号2....................
+ [2022-08-10 16:51:58,733]  INFO MaTrade.py [ line:560 ] 信号2已确认！
+ [2022-08-10 16:51:58,734]  INFO MaTrade.py [ line:588 ] 开始循环检测信号3
+ [2022-08-10 16:51:58,941]  INFO MaTrade.py [ line:606 ] 满足3分钟信号
+ [2022-08-10 16:51:58,941]  INFO MaTrade.py [ line:58 ] 3分钟满足开仓条件，如果价格在均线附近 准备开仓
+ [2022-08-10 16:51:59,146]  INFO MaTrade.py [ line:343 ] open        1694.61
+high        1701.79
+low         1694.05
+close       1698.93
+volume       236804
+volCcy      23680.4
+MA60      1687.7445
+Name: 2022-08-10 16:45:00, dtype: object
+ [2022-08-10 16:51:59,147]  INFO MaTrade.py [ line:354 ] 价格远离均线，信号无效，重新检测中
+ [2022-08-10 16:52:00,359]  INFO MaTrade.py [ line:58 ] 信号1已确认!
+ [2022-08-10 16:52:00,359]  INFO MaTrade.py [ line:541 ] 正在判断信号2....................
+ [2022-08-10 16:52:03,775]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 16:53:05,697]  ERROR basetrade.py [ line:226 ] initialization account error: api_key: f76a1e05-cc56-43fd-aa6a-88aa3e51b6a2
+ [2022-08-10 17:02:50,554]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 17:03:41,502]  ERROR basetrade.py [ line:231 ] initialization account error: api_key: f76a1e05-cc56-43fd-aa6a-88aa3e51b6a2
+ [2022-08-10 17:03:45,880]  INFO MaTrade.py [ line:58 ] 信号1已确认!
+ [2022-08-10 17:03:45,880]  INFO MaTrade.py [ line:541 ] 正在判断信号2....................
+ [2022-08-10 17:03:48,099]  INFO MaTrade.py [ line:560 ] 信号2已确认！
+ [2022-08-10 17:03:48,099]  INFO MaTrade.py [ line:588 ] 开始循环检测信号3
+ [2022-08-10 17:03:48,304]  INFO MaTrade.py [ line:606 ] 满足3分钟信号
+ [2022-08-10 17:03:48,304]  INFO MaTrade.py [ line:58 ] 3分钟满足开仓条件，如果价格在均线附近 准备开仓
+ [2022-08-10 17:03:48,524]  INFO MaTrade.py [ line:343 ] open           1702.5
+high          1707.91
+low              1701
+close         1702.89
+volume         182976
+volCcy        18297.6
+MA60      1687.980167
+Name: 2022-08-10 17:00:00, dtype: object
+ [2022-08-10 17:03:48,525]  INFO MaTrade.py [ line:354 ] 价格远离均线，信号无效，重新检测中
+ [2022-08-10 17:03:49,767]  INFO MaTrade.py [ line:58 ] 信号1已确认!
+ [2022-08-10 17:03:49,767]  INFO MaTrade.py [ line:541 ] 正在判断信号2....................
+ [2022-08-10 17:03:54,487]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 17:05:11,102]  ERROR basetrade.py [ line:231 ] initialization account error: api_key: f76a1e05-cc56-43fd-aa6a-88aa3e51b6a2
+ [2022-08-10 17:05:14,402]  INFO MaTrade.py [ line:58 ] 信号1已确认!
+ [2022-08-10 17:05:14,402]  INFO MaTrade.py [ line:541 ] 正在判断信号2....................
+ [2022-08-10 17:05:16,606]  INFO MaTrade.py [ line:560 ] 信号2已确认！
+ [2022-08-10 17:05:16,606]  INFO MaTrade.py [ line:588 ] 开始循环检测信号3
+ [2022-08-10 17:05:16,823]  INFO MaTrade.py [ line:606 ] 满足3分钟信号
+ [2022-08-10 17:05:16,823]  INFO MaTrade.py [ line:58 ] 3分钟满足开仓条件，如果价格在均线附近 准备开仓
+ [2022-08-10 17:05:17,026]  INFO MaTrade.py [ line:343 ] open        1702.5
+high       1707.91
+low           1701
+close      1703.72
+volume      211534
+volCcy     21153.4
+MA60      1687.994
+Name: 2022-08-10 17:00:00, dtype: object
+ [2022-08-10 17:05:17,027]  INFO MaTrade.py [ line:354 ] 价格远离均线，信号无效，重新检测中
+ [2022-08-10 17:05:19,160]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 17:05:53,041]  INFO MaTrade.py [ line:104 ] 信号1已确认!
+ [2022-08-10 17:05:53,041]  INFO MaTrade.py [ line:541 ] 正在判断信号2....................
+ [2022-08-10 17:05:55,268]  INFO MaTrade.py [ line:560 ] 信号2已确认！
+ [2022-08-10 17:05:55,268]  INFO MaTrade.py [ line:588 ] 开始循环检测信号3
+ [2022-08-10 17:05:55,889]  INFO MaTrade.py [ line:606 ] 满足3分钟信号
+ [2022-08-10 17:05:55,889]  INFO MaTrade.py [ line:113 ] 3分钟满足开仓条件，如果价格在均线附近 准备开仓
+ [2022-08-10 17:05:56,285]  INFO MaTrade.py [ line:343 ] open         1702.5
+high        1707.91
+low            1701
+close       1703.99
+volume       232869
+volCcy      23286.9
+MA60      1687.9985
+Name: 2022-08-10 17:00:00, dtype: object
+ [2022-08-10 17:05:56,286]  INFO MaTrade.py [ line:354 ] 价格远离均线，信号无效，重新检测中
+ [2022-08-10 17:12:45,922]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 17:13:11,169]  ERROR basetrade.py [ line:231 ] initialization account error: api_key: d4c23806-6c64-432e-96f6-b0e5a62042e8
+ [2022-08-10 17:15:15,620]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 17:16:05,114]  ERROR basetrade.py [ line:231 ] initialization account error: api_key: d4c23806-6c64-432e-96f6-b0e5a62042e8, API Request Error(code=50114): Invalid Authority
+ [2022-08-10 17:26:10,469]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 17:26:30,060]  ERROR basetrade.py [ line:233 ] initialization account error: api_key: d4c23806-6c64-432e-96f6-b0e5a62042e8, API Request Error(code=50114): Invalid Authority
+ [2022-08-10 17:26:49,046]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 17:28:55,321]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 17:29:31,744]  INFO main.py [ line:27 ] start trading...............................
+ [2022-08-10 17:29:38,822]  ERROR basetrade.py [ line:235 ] initialization account error: api_key: d4c23806-6c64-432e-96f6-b0e5a62042e8, API Request Error(code=50114): Invalid Authority
+ [2022-08-10 17:32:40,422]  INFO MaTrade.py [ line:104 ] 信号1已确认!
+ [2022-08-10 17:32:40,875]  INFO MaTrade.py [ line:541 ] 正在判断信号2....................
+ [2022-08-10 17:32:44,150]  INFO MaTrade.py [ line:560 ] 信号2已确认！
+ [2022-08-10 17:32:45,012]  INFO MaTrade.py [ line:588 ] 开始循环检测信号3
+ [2022-08-10 17:32:45,217]  INFO MaTrade.py [ line:606 ] 满足3分钟信号
+ [2022-08-10 17:32:47,489]  INFO MaTrade.py [ line:113 ] 3分钟满足开仓条件，如果价格在均线附近 准备开仓
+ [2022-08-10 17:32:49,256]  INFO MaTrade.py [ line:343 ] open          1700.41
+high          1702.97
+low            1698.5
+close         1699.41
+volume          98799
+volCcy         9879.9
+MA60      1688.443833
+Name: 2022-08-10 17:30:00, dtype: object
+ [2022-08-10 17:32:49,257]  INFO MaTrade.py [ line:354 ] 价格远离均线，信号无效，重新检测中

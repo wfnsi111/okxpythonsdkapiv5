@@ -5,7 +5,7 @@ api_key1 = {
     'api_key': "f76a1e05-cc56-43fd-aa6a-88aa3e51b6a2",
     'secret_key': "A23C7CEB8046F39369CF73BDEBE985F5",
     'passphrase': "Kangkang1_",
-    'flag': '1'
+    'flag': '0'
 }
 
 # 200
@@ -35,9 +35,16 @@ api_key4 = {
 }
 
 
+# 0
+api_key5 = {
+    'api_key': "4b11ed55-40a9-4678-9c91-266b6e74e102",
+    'secret_key': "9D8DFA1DF7F462F8F00B0B68B5AE6B9D",
+    'passphrase': "Kangkang1_",
+    'flag': '0'
+}
 
 
 def get_aip_key():
-    return api_key1
+    # return api_key1
     # return api_key2
-    # return api_key3
+    return api_key5

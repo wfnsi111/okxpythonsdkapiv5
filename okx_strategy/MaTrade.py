@@ -32,7 +32,7 @@ class MaTrade(BaseTrade):
         self.signal2 = False
         self.signal3 = False
         self.ma_percent, self.bar1, self.max_stop_loss, self.set_profit = self.set_args(self.bar2)
-
+        self.obj_lst = []
 
     def drow_k(self, df, ma_list=None):
         ma_list = [self.ma]
@@ -55,9 +55,10 @@ class MaTrade(BaseTrade):
         # mpf.plot(df, type='candle', addplot=add_plot, title=title, ylabel='prise(usdt)', style=my_style)
 
     def start_my_trade(self):
+        self.set_initialization_account(self.instId, lever='50', mgnMode='cross')
         time.sleep(2)
-
-        self.has_order = self.get_positions()
+        # self.has_order = self.get_positions()
+        i = 1
         while True:
             time.sleep(1)
             # time.sleep(60)
@@ -81,6 +82,7 @@ class MaTrade(BaseTrade):
                     self.log.info('3分钟满足开仓条件，如果价格在均线附近 准备开仓')
                     print('已检测到信号3.。。。')
                     code = self.check_price_to_ma_pec()
+                    # code = True
                     if not code:
                         continue
                     # 开仓
@@ -88,7 +90,10 @@ class MaTrade(BaseTrade):
                     continue
 
             # 判断信号1
-            print('等待信号1....................')
+            print("\r" + "等待%s信号" % self.bar2 + '.' * i + ' ' * (7 - i), flush=True, end='')
+            i += 1
+            if i == 7:
+                i = 1
             self.signal1 = self.check_signal1()
             if not self.signal1:
                 # print('等待信号1....................')
@@ -108,21 +113,17 @@ class MaTrade(BaseTrade):
                     self.log.info('3分钟满足开仓条件，如果价格在均线附近 准备开仓')
                     print('已检测到信号3.。。。')
                     code = self.check_price_to_ma_pec()
+                    code = True
                     if not code:
                         continue
                     # 开仓
                     self.ready_order()
 
-    def set_my_position(self):
+    def set_my_position(self, mybalance):
         # 设置头寸
         atr = self.get_atr_data()
-        self.mybalance = self.get_my_balance()
-        currency = 0.05 * self.mybalance / atr
+        currency = 0.05 * mybalance / atr
         sz = self.currency_to_sz(self.instId, currency)
-        if sz < 1:
-            print('仓位太小， 无法开仓 ---> *** %s张 ***' % sz)
-            self.log.error('仓位太小， 无法开仓')
-            raise
         return int(sz)
 
     def trend_analyze(self, c_length=10):
@@ -356,37 +357,60 @@ class MaTrade(BaseTrade):
     def ready_order(self):
         # isolated cross保证金模式.全仓, market：市价单  limit：限价单 post_only：只做maker单
         # sz 委托数量
-        self.set_initialization_account(self.instId, lever='50', mgnMode='cross')
-        self.sz = self.set_my_position()
+        code = False
         self.posSide = self.signal_order_para.get('posSide')
         self.side = self.signal_order_para.get('side')
-        para = {
-            "instId": self.instId,
-            "tdMode": self.tdMode,
-            "ccy": 'USDT',
-            'side': self.side,
-            'ordType': 'market',
-            'sz': self.sz,
-            'px': '',
-            'posSide': self.posSide
-        }
+        err_index_lst = []
+        for index, account_obj in enumerate(self.account_obj_lst):
+            if account_obj.status != 'free':
+                continue
+            sz = self.set_my_position(account_obj.balance)
+            account_obj.sz = sz
+            if sz < 1:
+                msg = '仓位太小， 无法开仓'
+                print(msg)
+                self.log.error(msg)
+                account_obj.msg.append(msg)
+                self.account_obj_lst_error.append(account_obj)
+                err_index_lst.append(index)
+                continue
 
-        result = self.tradeAPI.place_order(**para)
-        ordId, sCode, sMsg= self.check_order_result_data(result, 'ordId')
-        if sCode == "0":
-            # 获取持仓信息
-            # self.get_order_details(self.instId, ordId)
-            self.has_order = self.get_positions()
+            para = {
+                "instId": self.instId,
+                "tdMode": self.tdMode,
+                "ccy": 'USDT',
+                'side': self.side,
+                'ordType': 'market',
+                'sz': sz,
+                'px': '',
+                'posSide': self.posSide
+            }
+
+            result = account_obj.tradeAPI.place_order(**para)
+            ordId, sCode, sMsg= self.check_order_result_data(result, 'ordId')
+            if sCode == "0":
+                # 获取持仓信息
+                # self.get_order_details(self.instId, ordId)
+                account_obj.order_info = account_obj.get_positions()
+                result = self.set_place_algo_order_oco(account_obj)
+                code = True or code
+                print('开仓成功！！！！！！')
+                self.log.info('开仓成功！！！！！！')
+            else:
+                self.log.error('place_order error!!!!')
+                self.has_order = False
+                err_index_lst.append(index)
+
+        self.has_order = code
+        if code:
             self.order_times += 1
-            print('开仓成功！！！！！！')
-            self.log.info('开仓成功！！！！！！')
-        else:
-            self.log.error('place_order error!!!!')
-            self.has_order = False
-        if self.has_order:
-            # 设置止损止盈
-            self.set_place_algo_order_oco()
-            self.has_order = True
+
+        # 更新账户状态
+        for index, account_obj in enumerate(self.account_obj_lst):
+            if index in err_index_lst:
+                self.update_account_status(account_obj, 'trade error')
+            else:
+                self.update_account_status(account_obj, 'trading')
 
     def get_atr_data(self):
         try:
@@ -421,15 +445,15 @@ class MaTrade(BaseTrade):
         return False
 
 
-    def set_place_algo_order_price(self):
+    def set_place_algo_order_price(self, account_obj):
         """ 设置止损止盈价格
             -1是市价止盈止损
 
             止损（ %5 * 账户资金 ） 除以 （ 3 * 建仓单位）
         """
-        p = (0.05 * self.mybalance) / (3 * self.sz / 10)
-        if self.order_lst:
-            for data in self.order_lst:
+        p = (0.05 * account_obj.balance) / (3 * account_obj.sz / 10)
+        if account_obj.order_info:
+            for data in account_obj.order_info:
                 avgPx = data.get('avgPx')
                 posSide = data.get('posSide')
                 if self.set_profit:
@@ -461,7 +485,7 @@ class MaTrade(BaseTrade):
             self.log.error("no order details!!!*******************************")
             return
 
-    def set_place_algo_order_oco(self, tpTriggerPx='', tpOrdPx='', slTriggerPx='', slOrdPx=''):
+    def set_place_algo_order_oco(self, account_obj, tpTriggerPx='', tpOrdPx='', slTriggerPx='', slOrdPx=''):
         """策略委托下单
         ordType:
             conditional：单向止盈止损
@@ -478,7 +502,7 @@ class MaTrade(BaseTrade):
         tpTriggerPxType = 'last' 最新价格
         """
         side = {"long": "sell", "short": "buy"}.get(self.posSide)
-        price_para = self.set_place_algo_order_price()
+        price_para = self.set_place_algo_order_price(account_obj)
 
         try:
             # result = self.tradeAPI.place_algo_order(self.instId, self.tdMode, self.side, ordType=self.ordType,
@@ -486,20 +510,25 @@ class MaTrade(BaseTrade):
             #                                         slTriggerPx=slTriggerPx, slOrdPx=slOrdPx,
             #                                         tpTriggerPxType='last', slTriggerPxType='last')
 
-            result = self.tradeAPI.place_algo_order(self.instId, self.tdMode, side, ordType=self.ordType,
-                                                    sz=self.sz, posSide=self.posSide, **price_para,
+            result = account_obj.tradeAPI.place_algo_order(self.instId, self.tdMode, side, ordType=self.ordType,
+                                                    sz=account_obj.sz, posSide=self.posSide, **price_para,
                                                     tpTriggerPxType='last', slTriggerPxType='last')
         except Exception as e:
-            self.log.error("委托单错误")
+            msg = '止损止盈设置错误'
+            self.log.error(msg)
             self.log.error(e)
-            return
+            return False
         algoId, sCode, msg = self.check_order_result_data(result, "algoId")
         if sCode == "0":
             # 事件执行结果的code，0代表成功
-            self.algoID = algoId
+            account_obj.algoID = algoId
         else:
             # 事件执行失败时的msg
+            account_obj.msg.append(msg)
             self.log.error("止损止盈设置错误，，，%s" % msg)
+            return False
+        return True
+
         # 撤销策略委托订单
         # result = tradeAPI.cancel_algo_order([{'algoId': '297394002194735104', 'instId': 'BTC-USDT-210409'}])
 
@@ -507,7 +536,7 @@ class MaTrade(BaseTrade):
         # 1 首先判断是否处于趋势之中
         self.trend_analyze()
         signal1 = self.set_signal_1h()
-        # signal1 = 'short'
+        signal1 = 'short'
         return signal1
 
     def check_signal2(self):
@@ -527,7 +556,7 @@ class MaTrade(BaseTrade):
             last_p = row['close']
             # 2 判断价格接近均线 %1 附近，
             signal2 = self.price_to_ma(last_p, ma, self.ma_percent)
-            # signal2 = True
+            signal2 = True
             if signal2:
                 print("信号2已确认！")
                 self.log.info("信号2已确认！")
@@ -574,7 +603,7 @@ class MaTrade(BaseTrade):
                 signal_order_para = self.get_short_signal_3min_confirm()
             else:
                 signal_order_para = False
-            # signal_order_para = {"side": "buy", "posSide": "long"}
+            signal_order_para = {"side": "buy", "posSide": "long"}
             if signal_order_para:
                 self.log.info('满足3分钟信号')
                 return signal_order_para
@@ -602,7 +631,7 @@ class MaTrade(BaseTrade):
         data_dict = args_dict.get(bar, None)
         if data_dict is None:
             self.log.error('大周期错误')
-            raise
+            raise ('NO Bar')
         ma_percent = data_dict.get('ma_percent')
         bar1 = data_dict.get('bar1')
         max_stop_loss = data_dict.get('stop_loss')

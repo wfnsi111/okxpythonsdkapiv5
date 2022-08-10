@@ -202,7 +202,6 @@ async def subscribe_without_login(url, channels):
 
                     print(get_timestamp() + res)
                     res = eval(res)
-                    #  60018   频道不存在
                     if 'event' in res:
                         continue
                     for i in res['arg']:
@@ -421,7 +420,7 @@ channels = [{"channel": "tickers", "instId": "BTC-USDT-SWAP"}]
 # channels = [{"channel": "open-interest", "instId": "LTC-USD-SWAP"}]
 # channels = [{"channel": "open-interest", "instId": "BTC-USD-210326"}]
 # K线频道 Candlesticks Channel
-# channels = [{"channel": "candle1m", "instId": "BTC-USD-210326"}]
+# channels = [{"channel": "candle6Hutc", "instId": "ETH-USDT-SWAP"}]
 # 交易频道 Trades Channel
 # channels = [{"channel": "trades", "instId": "BTC-USD-201225"}]
 # 预估交割/行权价格频道 Estimated delivery/exercise Price Channel
