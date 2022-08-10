@@ -56,7 +56,7 @@ class MaTrade(BaseTrade):
 
     def start_my_trade(self):
         time.sleep(2)
-
+        i = 1
         self.has_order = self.get_positions()
         while True:
             time.sleep(1)
@@ -79,6 +79,7 @@ class MaTrade(BaseTrade):
                 self.signal_order_para = self.check_signal3(self.signal1)
                 if self.signal_order_para:
                     self.log.info('3分钟满足开仓条件，如果价格在均线附近 准备开仓')
+                    print()
                     print('已检测到信号3.。。。')
                     code = self.check_price_to_ma_pec()
                     if not code:
@@ -88,12 +89,16 @@ class MaTrade(BaseTrade):
                     continue
 
             # 判断信号1
-            print('等待信号1....................')
+            print("\r" + "等待%s信号" % self.bar2 + '.' * i + ' ' * (7 - i), flush=True, end='')
+            i += 1
+            if i == 7:
+                i = 1
             self.signal1 = self.check_signal1()
             if not self.signal1:
                 # print('等待信号1....................')
                 continue
 
+            print()
             print('信号1已确认!')
             print('周期行情处于趋势之中')
             self.log.info('信号1已确认!')
@@ -529,6 +534,7 @@ class MaTrade(BaseTrade):
             signal2 = self.price_to_ma(last_p, ma, self.ma_percent)
             # signal2 = True
             if signal2:
+                print()
                 print("信号2已确认！")
                 self.log.info("信号2已确认！")
                 return True
