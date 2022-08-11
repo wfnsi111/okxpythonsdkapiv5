@@ -32,7 +32,7 @@ class MaTrade(BaseTrade):
         self.signal2 = False
         self.signal3 = False
         self.ma_percent, self.bar1, self.max_stop_loss, self.set_profit = self.set_args(self.bar2)
-
+        self.bar1_close = ''
 
     def drow_k(self, df, ma_list=None):
         ma_list = [self.ma]
@@ -194,12 +194,13 @@ class MaTrade(BaseTrade):
         row2 = df_3mins.iloc[-1, :]
         _volume = float(row2['volume'])
         _close = float(row2['close'])
+        self.bar1_close = _close
         _open = float(row2['open'])
         _low = float(row2['low'])
         entity = abs(_close - _open)
         down_wick = min(_close, _open) - _low
         vol_ma = float(row2['vol_ma'])
-        # 引线大于实体，
+        # 引线, 成交量，价格
         if down_wick > entity:
             if _volume > 2 * float(front_volume):
                 if _volume >= 2 * vol_ma:
@@ -218,12 +219,13 @@ class MaTrade(BaseTrade):
         row2 = df_3mins.iloc[-1, :]
         _volume = float(row2['volume'])
         _close = float(row2['close'])
+        self.bar1_close = _close
         _open = float(row2['open'])
         _high = float(row2['high'])
         entity = abs(_close - _open)
         down_wick = _high - max(_close, _open)
         vol_ma = float(row2['vol_ma'])
-        # 引线大于实体，
+        # 引线, 成交量，价格
         if down_wick >= entity:
             if _volume >= 2 * float(front_volume):
                 if _volume >= 2 * vol_ma:
@@ -295,7 +297,11 @@ class MaTrade(BaseTrade):
                         print('亏损')
                         self.log.info('亏损')
                         self.stop_loss += 1
-
+                        if self.stop_loss > self.max_stop_loss:
+                            bar1_num = int(re.findall(r"\d+", self.bar1)[0])
+                            print('止损啦！本人需要冷静片刻。。。')
+                            self.log.info('止损， 休息%s在继续运行' % self.bar1)
+                            time.sleep(bar1_num*60)
                     return self.has_order
 
         else:
@@ -349,7 +355,7 @@ class MaTrade(BaseTrade):
         # high = float(row['high'])
         # low = float(row['low'])
         last_p = float(row['close'])
-        code = self.price_to_ma(last_p, ma, self.ma_percent)
+        code = self.price_to_ma(self.bar1_close, ma, self.ma_percent)
         if code:
             print('价格在均线附近，准备开仓')
             self.log.info('价格在均线附近，准备开仓')
@@ -424,7 +430,6 @@ class MaTrade(BaseTrade):
         if pre <= ma_percent:
             return True
         return False
-
 
     def set_place_algo_order_price(self):
         """ 设置止损止盈价格
