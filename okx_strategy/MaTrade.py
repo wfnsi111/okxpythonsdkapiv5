@@ -31,7 +31,7 @@ class MaTrade(BaseTrade):
         self.signal1 = False
         self.signal2 = False
         self.signal3 = False
-        self.ma_percent, self.bar1, self.max_stop_loss, self.set_profit = self.set_args(self.bar2)
+        self.ma_percent, self.bar1, self.max_stop_loss, self.set_profit, self.risk_control = self.set_args(self.bar2)
 
     def drow_k(self, df, ma_list=None):
         ma_list = [self.ma]
@@ -113,7 +113,7 @@ class MaTrade(BaseTrade):
         # 设置头寸
         atr = self.get_atr_data()
         self.mybalance = self.get_my_balance()
-        currency = 0.05 * self.mybalance / atr
+        currency = self.risk_control * self.mybalance / atr
         sz = self.currency_to_sz(self.instId, currency)
         if sz < 1:
             print('仓位太小， 无法开仓 ---> *** %s张 ***' % sz)
@@ -614,7 +614,8 @@ class MaTrade(BaseTrade):
         bar1 = data_dict.get('bar1')
         max_stop_loss = data_dict.get('stop_loss')
         set_profit = data_dict.get('set_profit')
-        return ma_percent, bar1, max_stop_loss, set_profit
+        risk_control = data_dict.get('risk_control')
+        return ma_percent, bar1, max_stop_loss, set_profit, risk_control
 
 
 if __name__ == '__main__':
