@@ -32,7 +32,6 @@ class MaTrade(BaseTrade):
         self.signal2 = False
         self.signal3 = False
         self.ma_percent, self.bar1, self.max_stop_loss, self.set_profit = self.set_args(self.bar2)
-        self.bar1_close = ''
 
     def drow_k(self, df, ma_list=None):
         ma_list = [self.ma]
@@ -78,12 +77,8 @@ class MaTrade(BaseTrade):
                 # 止损了1次， 直接检测信号3
                 self.signal_order_para = self.check_signal3(self.signal1)
                 if self.signal_order_para:
-                    self.log.info('3分钟满足开仓条件，如果价格在均线附近 准备开仓')
                     print()
                     print('已检测到信号3.。。。')
-                    code = self.check_price_to_ma_pec()
-                    if not code:
-                        continue
                     # 开仓
                     self.ready_order()
                     continue
@@ -110,12 +105,8 @@ class MaTrade(BaseTrade):
                 # signal_order_para = {"side": "buy", "posSide": "long"}
                 # signal_order_para = {"side": "sell", "posSide": "short"}
                 if self.signal_order_para:
-                    self.log.info('3分钟满足开仓条件，如果价格在均线附近 准备开仓')
-                    print('已检测到信号3.。。。')
-                    code = self.check_price_to_ma_pec()
-                    if not code:
-                        continue
                     # 开仓
+                    print('已检测到信号3.。。。')
                     self.ready_order()
 
     def set_my_position(self):
@@ -192,19 +183,21 @@ class MaTrade(BaseTrade):
         df_3mins = self._get_market_data(self.instId, self.bar1, vol_ma=20, limit='100')
         front_volume = df_3mins.iloc[-2, :]['volume']
         row2 = df_3mins.iloc[-1, :]
+        bar1_close = float(row2['close'])
         _volume = float(row2['volume'])
-        _close = float(row2['close'])
-        self.bar1_close = _close
         _open = float(row2['open'])
         _low = float(row2['low'])
-        entity = abs(_close - _open)
-        down_wick = min(_close, _open) - _low
+        entity = abs(bar1_close - _open)
+        down_wick = min(bar1_close, _open) - _low
         vol_ma = float(row2['vol_ma'])
         # 引线, 成交量，价格
         if down_wick > entity:
             if _volume > 2 * float(front_volume):
                 if _volume >= 2 * vol_ma:
-                    self.record_price(df_3mins)
+                    code = self.check_price_to_ma_pec(bar1_close)
+                    if code:
+                        # 满足条件
+                        self.record_price(df_3mins)
                     return {"side": "buy", "posSide": "long"}
         return False
 
@@ -217,21 +210,23 @@ class MaTrade(BaseTrade):
         df_3mins = self._get_market_data(self.instId, self.bar1, vol_ma=20, limit='100')
         front_volume = df_3mins.iloc[-2, :]['volume']
         row2 = df_3mins.iloc[-1, :]
+        bar1_close = float(row2['close'])
         _volume = float(row2['volume'])
-        _close = float(row2['close'])
-        self.bar1_close = _close
+        self.bar1_close = bar1_close
         _open = float(row2['open'])
         _high = float(row2['high'])
-        entity = abs(_close - _open)
-        down_wick = _high - max(_close, _open)
+        entity = abs(bar1_close - _open)
+        down_wick = _high - max(bar1_close, _open)
         vol_ma = float(row2['vol_ma'])
         # 引线, 成交量，价格
         if down_wick >= entity:
             if _volume >= 2 * float(front_volume):
                 if _volume >= 2 * vol_ma:
-                    # 满足条件
-                    self.record_price(df_3mins)
-                    return {"side": "sell", "posSide": "short"}
+                    code = self.check_price_to_ma_pec(bar1_close)
+                    if code:
+                        # 满足条件
+                        self.record_price(df_3mins)
+                        return {"side": "sell", "posSide": "short"}
         return False
 
     def record_price(self, df):
@@ -346,7 +341,7 @@ class MaTrade(BaseTrade):
                     return True
         return False
 
-    def check_price_to_ma_pec(self):
+    def check_price_to_ma_pec(self, bar1_close):
         # 实时价格是否接近均线百分比附近
         df = self._get_candle_data(self.instId, self.bar2, [self.ma])
         row = df.iloc[-1, :]
@@ -355,13 +350,13 @@ class MaTrade(BaseTrade):
         # high = float(row['high'])
         # low = float(row['low'])
         last_p = float(row['close'])
-        code = self.price_to_ma(self.bar1_close, ma, self.ma_percent)
-        if code:
-            print('价格在均线附近，准备开仓')
-            self.log.info('价格在均线附近，准备开仓')
-        else:
-            print('价格远离均线，信号无效，重新检测中')
-            self.log.info('价格远离均线，信号无效，重新检测中')
+        code = self.price_to_ma(bar1_close, ma, self.ma_percent)
+        # if code:
+        #     print('价格在均线附近，准备开仓')
+        #     self.log.info('价格在均线附近，准备开仓')
+        # else:
+        #     print('价格远离均线，信号无效，重新检测中')
+        #     self.log.info('价格远离均线，信号无效，重新检测中')
         return code
 
     def ready_order(self):
