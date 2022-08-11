@@ -4,7 +4,7 @@
 
 信号1 趋势中
 信号2 大周期接近均线
-信号3 小周期引线和成交量达到要求
+信号3 小周期影线和成交量达到要求
 
 """
 
@@ -425,6 +425,7 @@ class MaTrade(BaseTrade):
         if pre <= ma_percent:
             return True
         return False
+
 
     def set_place_algo_order_price(self):
         """ 设置止损止盈价格
