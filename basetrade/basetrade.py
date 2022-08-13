@@ -146,9 +146,14 @@ class BaseTrade:
 
     def get_my_balance(self):
         result = self.accountAPI.get_account('USDT')
-        data = result.get('data')[0].get('details')[0]
-        mybalance = data.get('availEq')
-        return float(mybalance)
+        try:
+            data = result.get('data')[0].get('details')[0]
+            mybalance = float(data.get('availEq'))
+            return mybalance
+        except Exception as e:
+            self.log.error('get balance error')
+            self.log.error(result)
+            raise
 
     def _get_ticker(self, instId):
         result = self.marketAPI.get_ticker(instId)
