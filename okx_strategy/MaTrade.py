@@ -69,8 +69,8 @@ class MaTrade(BaseTrade):
 
             if self.stop_loss == self.max_stop_loss:
                 # 止损了2次， 退出程序
-                self.log.info('止损2次，退出程序')
-                print('止损2次，退出程序')
+                self.log.info('止损%s次，退出程序' % self.max_stop_loss)
+                print('止损%s次，退出程序' % self.max_stop_loss)
                 break
 
             if self.stop_loss < self.max_stop_loss and self.stop_loss > 0:
@@ -345,7 +345,6 @@ class MaTrade(BaseTrade):
         # 实时价格是否接近均线百分比附近
         df = self._get_candle_data(self.instId, self.bar2, [self.ma])
         row = df.iloc[-1, :]
-        self.log.info(row)
         ma = float(row[self.ma])
         # high = float(row['high'])
         # low = float(row['low'])
