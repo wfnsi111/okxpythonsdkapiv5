@@ -36,7 +36,7 @@ class LoggerHandler(logging.Logger):
 
         # 如果传递了文件，就会输出到file文件中
         if file:
-            file_handler = logging.FileHandler(file)
+            file_handler = logging.FileHandler(file, encoding='utf-8')
             # 4、设置 file_handler 级别
             file_handler.setLevel(logger_level)
             # 6、设置handler格式
