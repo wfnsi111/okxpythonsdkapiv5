@@ -292,7 +292,7 @@ class MaTrade(BaseTrade):
                         print('亏损')
                         self.log.info('亏损')
                         self.stop_loss += 1
-                        if self.stop_loss > self.max_stop_loss:
+                        if self.stop_loss < self.max_stop_loss:
                             bar1_num = int(re.findall(r"\d+", self.bar1)[0])
                             print('止损啦！本人需要冷静片刻。。。')
                             self.log.info('止损， 休息%s在继续运行' % self.bar1)
