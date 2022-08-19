@@ -6,13 +6,6 @@ args_dict = {
         'set_profit': 2,
         'risk_control': 0.01,
     },
-    '10m': {
-        "ma_percent": 0.005,
-        'bar1': '1m',
-        'stop_loss': 1,
-        'set_profit': 2,
-        'risk_control': 0.01,
-    },
     '15m': {
         "ma_percent": 0.005,
         'bar1': '3m',

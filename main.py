@@ -20,7 +20,7 @@ class MyTrade(BaseTrade):
         self.order_details = None
         self.tdMode = 'cross'
         self.ordType = 'oco'
-        self.has_order = False  # 设置一个参数，只持仓1笔交易， 有持仓的适合 就不在开仓
+        self.has_order = False  # 设置一个参数，只持仓1笔交易， 有持仓的时候 就不在开仓
 
     def start_tarde(self, strategy, **kwargs):
         self.log.info("start trading...............................")

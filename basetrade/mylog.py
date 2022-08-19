@@ -5,8 +5,8 @@ import time
 import os
 
 
-base_dir = os.path.split(os.path.abspath(__file__))[0]
-file_path = os.path.join(base_dir, "log", 'test.log')
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+file_path = os.path.join(base_dir, "log", 'log.log')
 name = 'root',
 logger_level = 'DEBUG',
 file = file_path,
