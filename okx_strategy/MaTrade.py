@@ -111,7 +111,7 @@ class MaTrade(BaseTrade):
 
     def set_my_position(self):
         # 设置头寸
-        atr = self.get_atr_data()
+        atr = self.get_atr_data(self.df, 20)
         self.mybalance = self.get_my_balance()
         currency = self.risk_control * self.mybalance / atr
         sz = self.currency_to_sz(self.instId, currency)
@@ -332,7 +332,7 @@ class MaTrade(BaseTrade):
         low = float(row['low'])
         # last = row['close']
         if high >= ma and low <= ma:
-            atr = self.get_atr_data()
+            atr = self.get_atr_data(df, 20)
             if self.side == 'buy':
                 if ma - low >= atr:
                     return True
@@ -392,19 +392,6 @@ class MaTrade(BaseTrade):
             # 设置止损止盈
             self.set_place_algo_order_oco()
             self.has_order = True
-
-    def get_atr_data(self):
-        try:
-            # self.mybalance = self.get_my_balance()
-            # 或者atr值， 前20天波动值
-            new_df = self.df.tail(20).copy()
-            tr_lst = []
-            new_df['tr'] = pd.to_numeric(new_df['high']) - pd.to_numeric(new_df['low'])
-            atr = new_df['tr'].mean()
-            return atr
-        except:
-            self.log.error('get ATR  error!!!!!!!!!!!!!!!!!!!!')
-
 
     def get_3_min_data(self):
         result = self.marketAPI.get_history_candlesticks(self.instId, limit="2")
