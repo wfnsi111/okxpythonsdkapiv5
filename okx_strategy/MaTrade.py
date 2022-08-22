@@ -26,7 +26,7 @@ class MaTrade(BaseTrade):
         self.ma = kwargs.get('ma')
         self.instId = kwargs.get('instId')
         self.bar2 = kwargs.get('bar2')
-        self.big_bar_time = kwargs.get('big_bar_time', 3)
+        self.big_bar_time = kwargs.get('big_bar_time', 10)
         self.signal_order_para = None
         self.signal1 = False
         self.signal2 = False
