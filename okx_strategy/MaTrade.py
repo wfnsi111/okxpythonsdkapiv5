@@ -116,6 +116,7 @@ class MaTrade(BaseTrade):
         currency = self.risk_control * self.mybalance / atr
         sz = self.currency_to_sz(self.instId, currency)
         if sz < 1:
+            print('账户余额为%s' % self.mybalance)
             print('仓位太小， 无法开仓 ---> *** %s张 ***' % sz)
             self.log.error('仓位太小， 无法开仓')
             raise
