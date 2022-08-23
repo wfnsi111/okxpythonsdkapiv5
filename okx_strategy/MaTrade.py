@@ -26,7 +26,7 @@ class MaTrade(BaseTrade):
         self.ma = kwargs.get('ma')
         self.instId = kwargs.get('instId')
         self.bar2 = kwargs.get('bar2')
-        self.big_bar_time = kwargs.get('big_bar_time', 3)
+        self.big_bar_time = kwargs.get('big_bar_time', 10)
         self.signal_order_para = None
         self.signal1 = False
         self.signal2 = False
@@ -69,8 +69,8 @@ class MaTrade(BaseTrade):
 
             if self.stop_loss == self.max_stop_loss:
                 # 止损了2次， 退出程序
-                self.log.info('止损2次，退出程序')
-                print('止损2次，退出程序')
+                self.log.info('止损%s次，退出程序' % self.max_stop_loss)
+                print('止损%s次，退出程序' % self.max_stop_loss)
                 break
 
             if self.stop_loss < self.max_stop_loss and self.stop_loss > 0:
@@ -111,7 +111,7 @@ class MaTrade(BaseTrade):
 
     def set_my_position(self):
         # 设置头寸
-        atr = self.get_atr_data()
+        atr = self.get_atr_data(self.df, 20)
         self.mybalance = self.get_my_balance()
         currency = self.risk_control * self.mybalance / atr
         sz = self.currency_to_sz(self.instId, currency)
@@ -292,7 +292,7 @@ class MaTrade(BaseTrade):
                         print('亏损')
                         self.log.info('亏损')
                         self.stop_loss += 1
-                        if self.stop_loss > self.max_stop_loss:
+                        if self.stop_loss < self.max_stop_loss:
                             bar1_num = int(re.findall(r"\d+", self.bar1)[0])
                             print('止损啦！本人需要冷静片刻。。。')
                             self.log.info('止损， 休息%s在继续运行' % self.bar1)
@@ -332,7 +332,7 @@ class MaTrade(BaseTrade):
         low = float(row['low'])
         # last = row['close']
         if high >= ma and low <= ma:
-            atr = self.get_atr_data()
+            atr = self.get_atr_data(df, 20)
             if self.side == 'buy':
                 if ma - low >= atr:
                     return True
@@ -345,7 +345,6 @@ class MaTrade(BaseTrade):
         # 实时价格是否接近均线百分比附近
         df = self._get_candle_data(self.instId, self.bar2, [self.ma])
         row = df.iloc[-1, :]
-        self.log.info(row)
         ma = float(row[self.ma])
         # high = float(row['high'])
         # low = float(row['low'])
@@ -393,19 +392,6 @@ class MaTrade(BaseTrade):
             # 设置止损止盈
             self.set_place_algo_order_oco()
             self.has_order = True
-
-    def get_atr_data(self):
-        try:
-            # self.mybalance = self.get_my_balance()
-            # 或者atr值， 前20天波动值
-            new_df = self.df.tail(20).copy()
-            tr_lst = []
-            new_df['tr'] = pd.to_numeric(new_df['high']) - pd.to_numeric(new_df['low'])
-            atr = new_df['tr'].mean()
-            return atr
-        except:
-            self.log.error('get ATR  error!!!!!!!!!!!!!!!!!!!!')
-
 
     def get_3_min_data(self):
         result = self.marketAPI.get_history_candlesticks(self.instId, limit="2")

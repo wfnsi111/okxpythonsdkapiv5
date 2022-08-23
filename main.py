@@ -20,7 +20,7 @@ class MyTrade(BaseTrade):
         self.order_details = None
         self.tdMode = 'cross'
         self.ordType = 'oco'
-        self.has_order = False  # 设置一个参数，只持仓1笔交易， 有持仓的适合 就不在开仓
+        self.has_order = False  # 设置一个参数，只持仓1笔交易， 有持仓的时候 就不在开仓
 
     def start_tarde(self, strategy, **kwargs):
         self.log.info("start trading...............................")
@@ -46,9 +46,9 @@ class MyTrade(BaseTrade):
         pass
 
 
-def get_aip_key_():
+def get_aip_key_(name):
     from conf.api_key_conf import get_aip_key
-    my_aip_key = get_aip_key()
+    my_aip_key = get_aip_key(name)
     api_key = my_aip_key.get('api_key')
     secret_key = my_aip_key.get('secret_key')
     passphrase = my_aip_key.get('passphrase')
@@ -57,11 +57,17 @@ def get_aip_key_():
 
 
 if __name__ == '__main__':
-    api_key, secret_key, passphrase, flag = get_aip_key_()
+    bar2 = '1H'
+
+    # name = '模拟'
+    # name = "huangA"
+    # name = "huangB"
+    # name = "zhangA"
+    name = "zhangB"
+
+    api_key, secret_key, passphrase, flag = get_aip_key_(name)
     use_server_time = False
     strategy = 'MaTrade'
-
-    bar2 = '1H'
 
     kw = {
         'instId': 'ETH-USDT-SWAP',

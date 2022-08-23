@@ -1,20 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from Mylog.mylog import LoggerHandler
+from .mylog import LoggerHandler
 import time
 import okx.Account_api as Account
-import okx.Funding_api as Funding
 import okx.Market_api as Market
-import okx.Public_api as Public
 import okx.Trade_api as Trade
-import okx.status_api as Status
-import okx.subAccount_api as SubAccount
-import okx.TradingData_api as TradingData
-import okx.Broker_api as Broker
-import okx.Convert_api as Convert
-import okx.FDBroker_api as FDBroker
-import okx.Rfq_api as Rfq
-import okx.TradingBot_api as TradingBot
 import pandas as pd
 import datetime
 import re
@@ -94,7 +84,7 @@ class BaseTrade:
         self.has_order = False
         self.order_lst.clear()
 
-    def _get_market_data(self, instId, bar, ma_lst=None, vol_ma=None, limit='100'):
+    def _get_market_data(self, instId, bar, ma_lst=None, vol_ma=None, limit='100', set_index=True):
         """ 获取历史K线数据 """
         result = self.marketAPI.get_history_candlesticks(instId, bar=bar, limit=limit)
         data_lst = result.get("data")
@@ -106,10 +96,12 @@ class BaseTrade:
             data_ = data_lst[i - 1]
             data_[0] = self.timestamp_to_date(data_[0])
             new_data_lst.append(data_)
-
         df = pd.DataFrame(new_data_lst, columns=columns_lst)
-        df['date'] = pd.to_datetime(df['date'])
-        df.set_index(['date'], inplace=True)
+
+        if set_index:
+            df['date'] = pd.to_datetime(df['date'])
+            df.set_index(['date'], inplace=True)
+
         if isinstance(ma_lst, list):
             for ma in ma_lst:
                 ma_num = int(re.findall(r"\d+", ma)[0])
@@ -215,3 +207,13 @@ class BaseTrade:
         """ 初始化账户 """
         result = self.accountAPI.get_position_mode('long_short_mode')
         result = self.accountAPI.set_leverage(instId=instId, lever=lever, mgnMode=mgnMode)
+
+    def get_atr_data(self, df, limit):
+        try:
+            new_df = df.tail(int(limit)).copy()
+            tr_lst = []
+            new_df['atr'] = pd.to_numeric(new_df['high']) - pd.to_numeric(new_df['low'])
+            atr = new_df['atr'].mean()
+            return atr
+        except:
+            self.log.error('get ATR  error!!!!!!!!!!!!!!!!!!!!')
